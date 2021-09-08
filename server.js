@@ -1,18 +1,21 @@
 require("dotenv").config();
 const express = require("express");
 const cors = require("cors")
+const cookieParser = require("cookie-parser")
 const configDb = require("./config/db");
 const morgan    = require("morgan")
 configDb();
 
 // eslint-disable-next-line no-undef
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 5000;
 
 const app = express();
 app.use(cors({ origin: true, credentials: true }));
-
-app.use(express.json());
+app.use(express.json())
+app.use(cookieParser())
 app.use(morgan("tiny"));
+app.use('/user', require('./routes/userRouter'))
+
 
 app.get("/", (req, res) => {
   res.status(200).send("Api is running!");

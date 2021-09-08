@@ -4,8 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server.js"
+    "start": "nodemon server.js --ignore client"
   },
   "repository": {
     "type": "git",
@@ -19,11 +18,16 @@
   "homepage": "https://github.com/TAbhay/Review_Project#readme",
   "dependencies": {
     "all": "0.0.0",
+    "bcrypt": "^5.0.1",
+    "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
-    "mongoose": "^6.0.4",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.0.5",
     "morgan": "^1.10.0",
+    "node-fetch": "^3.0.0",
+    "nodemailer": "^6.6.3",
     "nodemon": "^2.0.12"
   }
 }
