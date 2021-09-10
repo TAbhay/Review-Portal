@@ -16,19 +16,19 @@ const reviewSchema = new mongoose.Schema({
     },
     question:[
         {
-         "Q1":Number,
+         "Q1":String,
         },
         {
-        "Q2":Number,
+        "Q2":String,
         },
         {
-        "Q3":Number,
+        "Q3":Boolean,
         },
         {
-        "Q4":Number,
+        "Q4":Boolean,
         },
         {
-        "Q5":Number,
+        "Q5":Boolean,
         },
         {
         "Q6":Number,
@@ -37,6 +37,15 @@ const reviewSchema = new mongoose.Schema({
         "Q7":Number,
         },
     ],
+    comment:{
+        type:String,
+        default:"",
+        trim:true,
+    },
+    status:{
+        type:Number,
+        default:0,
+    }  
 
 },{
 

@@ -10,6 +10,14 @@ const projectSchema = new mongoose.Schema({
     project_by:{
         type : mongoose.Schema.Types.ObjectId,
         ref:'Users',
+    },
+    description:{
+        type:String,
+        trim:true,
+    },
+    is_deadline:{
+        type:Number,
+        default:0
     }
 },{
 
