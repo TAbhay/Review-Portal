@@ -14,10 +14,10 @@ app.use(cors({ origin: true, credentials: true }));
 app.use(express.json())
 app.use(cookieParser())
 app.use(morgan("tiny"));
- 
-app.use('/user', require('./routes/userRouter'))
+app.use('/seeder',require('./routes/seedRouter'));
+app.use('/user', require('./routes/userRouter'));
 app.use('/api',require('./routes/projectRouter'));
-
+app.use('/api',require('./routes/reviewRouter'));
 
 app.get("/", (req, res) => {
   res.status(200).send("Api is running!");

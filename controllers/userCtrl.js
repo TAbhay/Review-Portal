@@ -180,6 +180,7 @@ const userCtrl = {
 
               const access_token = createAccessToken({id: user.id})
               console.log({access_token})
+              console.log("here")
                res.json({access_token})
               
            })
