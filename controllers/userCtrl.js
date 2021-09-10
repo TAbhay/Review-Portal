@@ -3,7 +3,48 @@ const bcrypt = require("bcrypt")
 const jwt = require ("jsonwebtoken")
 const sendMail= require("./sendMail")
 //const auth = require('../middleware/auth')
-
+const json = [
+    {   name:"test",  
+       email:"email9@gmail.com", 
+       password: bcrypt.hashSync('123456',12),
+       role:2,
+    },
+    {  name:"test",
+        email:"email10@gmail.com",
+        password: bcrypt.hashSync('123456',12),
+        role:2,
+     },
+     {  name:"test",
+        email:"email11@gmail.com",
+        password: bcrypt.hashSync('123456',12),
+        role:2,
+     },
+     {  name:"test",
+        email:"email12@gmail.com",
+        password: bcrypt.hashSync('123456',12),
+        role:2,
+     },
+     {   name:"test",  
+       email:"email13@gmail.com", 
+       password: bcrypt.hashSync('123456',12),
+       role:2,
+    },
+    {  name:"test",
+        email:"email6@gmail.com",
+        password: bcrypt.hashSync('123456',12),
+        role:2,
+     },
+     {  name:"test",
+        email:"email7@gmail.com",
+        password: bcrypt.hashSync('123456',12),
+        role:2,
+     },
+     {  name:"test",
+        email:"email8@gmail.com",
+        password: bcrypt.hashSync('123456',12),
+        role:2,
+     },
+] 
 const {CLIENT_URL} = process.env
 
 const userCtrl = {
@@ -99,7 +140,7 @@ const userCtrl = {
             console.log({refresh_token})
             res.cookie('refreshtoken', refresh_token, {
              
-                 httpOnly: true,
+                // httpOnly: true,
                  path: "/user/refresh_token",
                  maxAge:7*24*60*60*1000 // 7days,
                  
@@ -129,7 +170,7 @@ const userCtrl = {
             const rf_token = req.cookies.refreshtoken
 
             console.log({rf_token})
-
+            
            if(!rf_token) return res.status(400).json({msg:'Please login'})
 
            jwt.verify(rf_token,process.env.REFRESH_TOKEN_SECRET,(err,user)=>{
@@ -138,8 +179,9 @@ const userCtrl = {
               if(err)   return res.status(400).json({msg:'Please login'})
 
               const access_token = createAccessToken({id: user.id})
+              console.log({access_token})
                res.json({access_token})
-
+              
            })
 
         }catch(err){
@@ -151,7 +193,7 @@ const userCtrl = {
 
     forgotPassword: async(req,res) =>{
         try{
-       
+           
             const {email} = req.body
 
             const user = await Users.findOne({email})
@@ -200,9 +242,9 @@ const userCtrl = {
     getUserInfor:async(req,res) =>{
 
         try{
-            
+           console.log(req.user)
             const user = await Users.findById(req.user.id).select('-password')
-            console.log(user)
+           
             res.json(user)
         }catch(err){
             return res.status(500).json({msg:err.message})
@@ -288,8 +330,19 @@ const userCtrl = {
             return res.status(500).json({msg:err.message})
         }
     },
-    
+    importData: async (req,res) =>{
+        try {
 
+            const createdUsers = await Users.insertMany(json);
+        
+            console.log("inserted")
+            res.json({message:"Inserted"})
+          
+          } catch (error) {
+              console.log(error);
+              res.json({message:"erro"})
+          }
+    }
 
 
 
@@ -307,13 +360,13 @@ function validateEmail(email){
 
 const createActivationToken = (payload) => {
 
-    return jwt.sign(payload, process.env.ACTIVATION_TOKEN_SECRET,{expiresIn:"5m"})
+    return jwt.sign(payload, process.env.ACTIVATION_TOKEN_SECRET,{expiresIn:"1d"})
 }
 
 
 const createAccessToken = (payload) => {
 
-    return jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET,{expiresIn:"15m"})
+    return jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET,{expiresIn:"2d"})
 }
 
 
