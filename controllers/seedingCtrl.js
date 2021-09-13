@@ -50,12 +50,12 @@ const users = [
     {
        name:"user1",
        email:"emailtest@gmail.com",
-       passwrod:bcrypt.hashSync('123456',12),
+       password:bcrypt.hashSync('123456',12),
     },
     {
         name:"user1",
         email:"emailtest21@gmail.com",
-        passwrod:bcrypt.hashSync('123456',12),
+        password:bcrypt.hashSync('123456',12),
     }
 ]
 const seedingCtrl = {
