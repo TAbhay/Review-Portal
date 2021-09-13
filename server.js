@@ -14,6 +14,7 @@ app.use(cors({ origin: true, credentials: true }));
 app.use(express.json())
 app.use(cookieParser())
 app.use(morgan("tiny"));
+app.use('/admin',require('./routes/adminRouter'));
 app.use('/seeder',require('./routes/seedRouter'));
 app.use('/user', require('./routes/userRouter'));
 app.use('/api',require('./routes/projectRouter'));

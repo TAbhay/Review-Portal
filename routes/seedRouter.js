@@ -4,10 +4,10 @@ const auth = require('../middleware/auth')
 const authAdmin = require('../middleware/authAdmin')
 
 
-router.get('/userseeder',auth,authAdmin,seedingCtrl.userSeeder );
-router.get('/reviewerseeder',auth,authAdmin,seedingCtrl.reviewerSeeder);
-router.get('/projectseeder',auth, authAdmin,seedingCtrl.projectSeeder);
-router.get('/reviewseeder',auth,authAdmin,seedingCtrl.reviewSeeder );
+router.get('/userseeder',seedingCtrl.userSeeder );
+router.get('/reviewerseeder',seedingCtrl.reviewerSeeder);
+router.get('/projectseeder',seedingCtrl.projectSeeder);
+router.get('/reviewseeder',seedingCtrl.reviewSeeder );
 
 
 module.exports = router;

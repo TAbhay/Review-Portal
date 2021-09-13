@@ -5,7 +5,6 @@ const authAdmin = require('../middleware/authAdmin')
 
 
 router.get('/review',auth, reviewCtrl.getReviews );
-router.get('/review/insert',auth, reviewCtrl.addReviewer);
 router.get('/review/:reviewId',auth, reviewCtrl.getReview)
 router.post('/review/:reviewId',auth, reviewCtrl.editReview );
 router.put('/review/:reviewId',auth, reviewCtrl.editReview );
