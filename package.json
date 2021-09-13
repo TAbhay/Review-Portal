@@ -18,6 +18,7 @@
   "homepage": "https://github.com/TAbhay/Review_Project#readme",
   "dependencies": {
     "all": "0.0.0",
+    "axios": "^0.21.4",
     "bcrypt": "^5.0.1",
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
