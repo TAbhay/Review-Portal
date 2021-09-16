@@ -8,7 +8,9 @@ const reviewCtrl = {
 
     getReviews: async (req,res) =>{
        try{
+           console.log(req.user.id)
            const allReviews = await Reviews.find({review_by:req.user.id});
+           console.log(allReviews)
            res.status(200).json(allReviews);
        }
        catch(err){
@@ -28,22 +30,15 @@ const reviewCtrl = {
     },
     editReview: async (req,res) =>{
        try{
-             const { answer , comment , status } = req.body;
+             const { question , comment , status } = req.body;
+             console.log(req.body);
+            
              const reviewUpdate = {
-                 question:[{
-                     Q1:answer.Q1,
-                     Q2:answer.Q2,
-                     Q3:answer.Q3,
-                     Q4:answer.Q4,
-                     Q5:answer.Q5,
-                     Q6:answer.Q6,
-                     Q7:answer.Q7,
-                 }, 
-                 ],
+                 question:question,
                  comment:comment,
                  status:status,
              }
-             const result = Reviews.findOneAndUpdate({review_by:req.user.id,_id:req.params.reviewId},reviewUpdate);
+             const result = await Reviews.findOneAndUpdate({review_by:req.user.id,_id:req.params.reviewId},reviewUpdate,{new:true});
              res.status(200).json(result); 
        }
        catch(err){
@@ -53,21 +48,6 @@ const reviewCtrl = {
        }   
             
     },
-    addReviewer: async (req, res) => {
-        console.log("here")
-        try{
-            const reviewers = await Users.find({role:2});
-            const projects  = await Projects.find({});
-            res.json(reviewers.length);
-
-
-        }
-        catch(err){
-            res.status(500).json({message:"Some error occured !! 3"});
-        }
-    },
-
-
 }
 
 module.exports = reviewCtrl;

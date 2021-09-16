@@ -2,7 +2,7 @@ const Users = require('../models/userModel')
 const Projects = require('../models/projectModel')
 const Reviews = require('../models/reviewModel')
 const bcrypt = require("bcrypt")
-
+const mongoose = require("mongoose")
 
 const reviewers = [
     {   name:"test",  
@@ -49,13 +49,13 @@ const reviewers = [
 const users = [
     {
        name:"user1",
-       email:"emailtest@gmail.com",
-       password:bcrypt.hashSync('123456',12),
+       email:"emailtsddsdfddsssdedst@gmail.com",
+       password: bcrypt.hashSync('123456',10),
     },
     {
         name:"user1",
-        email:"emailtest21@gmail.com",
-        password:bcrypt.hashSync('123456',12),
+        email:"emailtfddsdsesdsdssdst21@gmail.com",
+        password:  bcrypt.hashSync('123456',10),
     }
 ]
 const seedingCtrl = {
@@ -65,7 +65,8 @@ const seedingCtrl = {
             res.json({message:"Inserted"})
         }   
         catch(err){
-            res.status(500).json("Something Bad has happened")
+            console.log(err)
+            res.status(500).json("Something Bad has happened1")
         }    
     },
     reviewerSeeder : async(req,res)=>{
@@ -74,7 +75,7 @@ const seedingCtrl = {
             res.json({message:"Inserted"})
         }
         catch(err){
-            res.status(500).json("Something Bad has happened")
+            res.status(500).json("Something Bad has happened2")
         }
     },
     projectSeeder : async(req,res)=>{
@@ -94,12 +95,27 @@ const seedingCtrl = {
             res.json({result})
         }
         catch(err){
-            res.status(500).json("Something Bad has happened")
+            res.status(500).json("Something Bad has happened3")
         }
     },
     reviewSeeder : async(req,res)=>{
         try{
-            res.json({message:"true"});
+            const projects = await Projects.find({});
+            const reviewers = await Users.find({role:2});
+            const jsons = []
+            projects.map((project) =>{
+               const temp =  reviewers.sort(() => Math.random() - 0.5);
+               
+               for(var i=0;i<5;i++){
+                    let  rev = {}
+                    rev.project_by = project.project_by;
+                    rev.review_by  = temp[i]._id;
+                    rev.project    = project._id;
+                    jsons.push(rev)
+               }
+            })
+            const result = await Reviews.insertMany(jsons);
+            res.json(result)
         }
         catch(err){
             res.status(500).json("Something Bad has happened")
@@ -107,5 +123,6 @@ const seedingCtrl = {
     },
 
 }
+
 
 module.exports = seedingCtrl;

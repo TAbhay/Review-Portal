@@ -3,48 +3,7 @@ const bcrypt = require("bcrypt")
 const jwt = require ("jsonwebtoken")
 const sendMail= require("./sendMail")
 //const auth = require('../middleware/auth')
-const json = [
-    {   name:"test",  
-       email:"email9@gmail.com", 
-       password: bcrypt.hashSync('123456',12),
-       role:2,
-    },
-    {  name:"test",
-        email:"email10@gmail.com",
-        password: bcrypt.hashSync('123456',12),
-        role:2,
-     },
-     {  name:"test",
-        email:"email11@gmail.com",
-        password: bcrypt.hashSync('123456',12),
-        role:2,
-     },
-     {  name:"test",
-        email:"email12@gmail.com",
-        password: bcrypt.hashSync('123456',12),
-        role:2,
-     },
-     {   name:"test",  
-       email:"email13@gmail.com", 
-       password: bcrypt.hashSync('123456',12),
-       role:2,
-    },
-    {  name:"test",
-        email:"email6@gmail.com",
-        password: bcrypt.hashSync('123456',12),
-        role:2,
-     },
-     {  name:"test",
-        email:"email7@gmail.com",
-        password: bcrypt.hashSync('123456',12),
-        role:2,
-     },
-     {  name:"test",
-        email:"email8@gmail.com",
-        password: bcrypt.hashSync('123456',12),
-        role:2,
-     },
-] 
+
 const {CLIENT_URL} = process.env
 
 const userCtrl = {
@@ -331,22 +290,7 @@ const userCtrl = {
             return res.status(500).json({msg:err.message})
         }
     },
-    importData: async (req,res) =>{
-        try {
-
-            const createdUsers = await Users.insertMany(json);
-        
-            console.log("inserted")
-            res.json({message:"Inserted"})
-          
-          } catch (error) {
-              console.log(error);
-              res.json({message:"erro"})
-          }
-    }
-
-
-
+  
 
 }
 

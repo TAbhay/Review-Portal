@@ -4,7 +4,6 @@ const auth = require('../middleware/auth')
 const authAdmin = require('../middleware/authAdmin')
 
 
-router.get('/insert',userCtrl.importData)
 
 router.post('/register', userCtrl.register )
 
