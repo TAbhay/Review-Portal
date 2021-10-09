@@ -9,7 +9,7 @@ const reviewCtrl = {
     getReviews: async (req,res) =>{
        try{
            console.log(req.user.id)
-           const allReviews = await Reviews.find({review_by:req.user.id});
+           const allReviews = await Reviews.find({review_by:req.user.id}).populate('project');
            console.log(allReviews)
            res.status(200).json(allReviews);
        }

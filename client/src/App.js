@@ -6,7 +6,7 @@ import Body from "./components/body/Body"
 import axios from "axios"
 import {dispatchLogin,fetchUser,dispatchGetUser} from "./redux/actions/authAction"
 
-function App() {
+const  App = () => {
 
 const dispatch = useDispatch()
 const token = useSelector(state => state.token)

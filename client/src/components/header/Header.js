@@ -52,10 +52,6 @@ export default function Header() {
                 </Link>
                 </li>
             </ul>
-           
-            
-            
-            
         </li>
     }
 
@@ -67,21 +63,26 @@ export default function Header() {
         <header>
             <div className = "logo">
 
-                <h1><Link to="/">Review Projects</Link></h1>
+                <h1><Link to="/">Review</Link></h1>
             </div>
 
             <ul  style={transForm} >
-                <li><Link to="/"><i className="fas fa-project-diagram"></i>Projects</Link></li>
+                
                 {
                     isLogged
-                    ? userLink()
+                    ? <li><Link to="/">Projects</Link></li>
                     :<li><Link to="/login"><i className="fas fa-user"></i> Sign in</Link></li>
+                } 
+                {
+                    isLogged
+                    ? <li>
+                    <Link to="/" onClick={handleLogout}>
+                    Logout
+                   </Link>
+                   </li>
+                    :<li></li>
                 }
-               
-
             </ul>
-
-
         </header>
     )
 }

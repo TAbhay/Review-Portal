@@ -112,7 +112,7 @@ const userCtrl = {
            console.log("doneeeeee")
     
 
-            res.json({msg:"Login success"})
+            res.json({user:user,msg:"Login success"})
 
         } catch (err) {
 
@@ -204,7 +204,8 @@ const userCtrl = {
         try{
            console.log(req.user)
             const user = await Users.findById(req.user.id).select('-password')
-           
+            console.log("here user infor")
+            console.log(user)
             res.json(user)
         }catch(err){
             return res.status(500).json({msg:err.message})
@@ -217,7 +218,7 @@ const userCtrl = {
         try{
            
            const users = await Users.find().select('-password')
-
+           
            res.json(users)
         } catch(err){
             return res.status(500).json({msg:err.message})

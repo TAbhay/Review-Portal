@@ -23,6 +23,7 @@ const reviewSchema = new mongoose.Schema({
           Q5:Boolean,
           Q6:Number,
           Q7:Number,
+          Q8:Number,
         }],
     comment:{
         type:String,
