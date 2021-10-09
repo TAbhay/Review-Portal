@@ -13,10 +13,7 @@ import {
   dispatchGetUser,
 } from "./redux/actions/authAction";
 
-function App() {
-  const dispatch = useDispatch();
-  const token = useSelector((state) => state.token);
-  const auth = useSelector((state) => state.auth);
+const  App = () => {
 
   useEffect(() => {
     const firstLogin = localStorage.getItem("firstLogin");

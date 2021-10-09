@@ -39,39 +39,52 @@ export default function Header() {
             <Link to="/" onClick={handleLogout}>
               Logout
             </Link>
-          </li>
-        </ul>
-      </li>
-    );
-  };
 
-  const transForm = {
-    transform: isLogged ? "translateY(-5px)" : 0,
-  };
-  return (
-    <header>
-      <div className="logo">
-        <h1>
-          <Link to="/">Full Auth</Link>
-        </h1>
-      </div>
+            <ul className="dropdown">
 
-      <ul style={transForm}>
-        <li>
-          <Link to="/projects">
-            View Projects
-          </Link>
+                <li>
+                 <Link to="/profile">
+                 Profile
+                </Link>
+                </li>
+
+                <li>
+                 <Link to="/" onClick={handleLogout}>
+                 Logout
+                </Link>
+                </li>
+            </ul>
         </li>
-        {isLogged ? (
-          userLink()
-        ) : (
-          <li>
-            <Link to="/login">
-              <i className="fas fa-user"></i> Sign in
-            </Link>
-          </li>
-        )}
-      </ul>
-    </header>
-  );
+    }
+
+
+    const transForm = {
+        transform: isLogged ? "translateY(-5px)" : 0 
+    }
+    return (
+        <header>
+            <div className = "logo">
+
+                <h1><Link to="/">Review</Link></h1>
+            </div>
+
+            <ul  style={transForm} >
+                
+                {
+                    isLogged
+                    ? <li><Link to="/">Projects</Link></li>
+                    :<li><Link to="/login"><i className="fas fa-user"></i> Sign in</Link></li>
+                } 
+                {
+                    isLogged
+                    ? <li>
+                    <Link to="/" onClick={handleLogout}>
+                    Logout
+                   </Link>
+                   </li>
+                    :<li></li>
+                }
+            </ul>
+        </header>
+    )
 }
