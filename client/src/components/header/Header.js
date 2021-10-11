@@ -1,7 +1,7 @@
 import React from "react";
 
 import { Link } from "react-router-dom";
-import "./Header.css";
+import "./header.css";
 import { useSelector } from "react-redux";
 import axios from "axios";
 
@@ -55,7 +55,9 @@ export default function Header() {
                 </li>
             </ul>
         </li>
-    }
+        </ul>
+        </li>
+    )}
 
 
     const transForm = {

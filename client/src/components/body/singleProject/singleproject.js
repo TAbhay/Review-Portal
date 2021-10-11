@@ -6,7 +6,7 @@ const singleProject = (props) =>  {
   
     return(
    
-        <div className="project-container">
+        <div className="single-project-container">
           <div className="project-body">
            <div className = "project-title">
                 <h1>This is the title</h1>
