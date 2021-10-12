@@ -8,20 +8,20 @@ const Project = (props) =>  {
     const status = project.status;
     
     return (
-      <div className="card project_small container">
+      <div className="single_project_card single_project_container">
         <div className="card-item card-title project_heading">
           <h4>author</h4>
         </div>
 
-        <div className="card-item card-body">
+        <div className="card_small_conatainer">
           <Link to={`/review/{${id}}`}>
             {" "}
-            <div className="card-body-item card-edit edit_icon">
+            <div className="edit_icon">
               <i class="fas fa-edit"></i>
             </div>{" "}
           </Link>
           <p className="card_status_word">Review Status:</p>
-          <div className="card-body-item card-status">
+          <div className="card-status">
             {status ? (
               <i class="fas fa-dot-circle" style={{ color: "green" }}></i>
             ) : (
