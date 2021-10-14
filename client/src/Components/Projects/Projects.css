@@ -1,0 +1,31 @@
+.container {
+  background: white;
+  border: solid;
+  border-width: 1px;
+  border-radius: 0 0.5rem 0.5rem 0.5rem;
+  @extend %boxshadow;
+  counter-increment: gradient-counter;
+  margin-top: 1rem;
+  min-height: 3rem;
+  padding: 1rem 1rem 1rem 3rem;
+  position: relative;
+}
+
+.project_small_container {
+  display: flex;
+  flex-direction: row;
+}
+
+.edit_icon {
+  margin-left: auto;
+  margin-right: 10%;
+}
+
+.project_heading {
+  font-size: larger;
+  color: cornflowerblue;
+}
+
+.project_discription {
+  font-size: medium;
+}
