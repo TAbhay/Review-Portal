@@ -1,11 +1,10 @@
 import React, { useEffect } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Header from "./Components/Header/Header";
 import Body from "./Components/body/Body";
 import axios from "axios";
-import Projects from "./Components/Projects/Projects";
-import Project from "./Components/Project/Project";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 import {
   dispatchLogin,
@@ -13,7 +12,10 @@ import {
   dispatchGetUser,
 } from "./redux/actions/authAction";
 
-const  App = () => {
+const App = () => {
+  const dispatch = useDispatch();
+  const token = useSelector((state) => state.token);
+  const auth = useSelector((state) => state.auth);
 
   useEffect(() => {
     const firstLogin = localStorage.getItem("firstLogin");
@@ -39,50 +41,14 @@ const  App = () => {
     }
   }, [token, dispatch]);
 
-  var all_projects = [
-    {
-      name: "Project1",
-      discription: "This is the 1st project",
-    },
-    {
-      name: "Project2",
-      discription: "This is the 2st project",
-    },
-    {
-      name: "Project3",
-      discription: "This is the 3st project",
-    },
-    {
-      name: "Project4",
-      discription: "This is the 4st project",
-    },
-    {
-      name: "Project5",
-      discription: "This is the 5st project",
-    },
-    {
-      name: "Project6",
-      discription: "This is the 6st project",
-    },
-  ];
-
   return (
     <Router>
       <div className="App">
-        <Switch>
-          <Route exact path="/">
-            <Header />
-          </Route>
-          <Route exact path="/projects">
-            <Projects all_project={all_projects} />
-          </Route>
-          <Route exact path="/projects/project">
-            <Project />
-          </Route>
-        </Switch>
+        <Header />
+        <Body />
       </div>
     </Router>
   );
-}
+};
 
 export default App;
