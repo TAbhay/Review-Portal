@@ -26,7 +26,7 @@ export default function Register() {
    // const dispatch = useDispatch()
    // const history = useHistory()
     const {name,email,password,cf_password,err,success} = user
-
+ 
     const handleChangeInput = e => {
         const {name, value} = e.target
         setUser({...user , [name]:value, err:"", success:""})
@@ -64,7 +64,7 @@ export default function Register() {
            
             
         }catch(err){
-            console.log(err.response)
+           
             err.response.data.msg && setUser({...user , err:err.response.data.msg, success:""})
         }
     }

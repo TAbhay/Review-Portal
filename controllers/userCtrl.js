@@ -1,5 +1,5 @@
 const Users = require('../models/userModel')
-const bcrypt = require("bcrypt")
+const bcrypt = require("bcryptjs")
 const jwt = require ("jsonwebtoken")
 const sendMail= require("./sendMail")
 //const auth = require('../middleware/auth')
@@ -19,9 +19,6 @@ const userCtrl = {
 
             if(!name || !email || !password)
               return res.status(400).json({msg:'Please fill in all the fields'})
-          //  console.log(req.body)
-           
-
 
             const user = await Users.findOne({email})
 
@@ -34,14 +31,12 @@ const userCtrl = {
             const newUser ={
                 name,email,password:passwordHash
             }
-           console.log(newUser);
-           console.log(token)
+         
             const activation_token = createActivationToken(newUser)
 
             const url = `${CLIENT_URL}/user/activate/${activation_token}`
 
             const info = await sendMail(email, url, "REGISTER")
-            console.log(info);
 
             res.json({msg:"Resgistration done , please activate your account"})
 
@@ -60,7 +55,6 @@ const userCtrl = {
 
            const {activation_token} = req.body
            const user = jwt.verify(activation_token, process.env.ACTIVATION_TOKEN_SECRET)
-           //console.log(user)
 
            const {name, email, password} = user
 
@@ -96,7 +90,7 @@ const userCtrl = {
             if(!isMatch) return res.status(400).json({msg:"Password is incorrect"})
 
             const refresh_token = createRefreshToken({id:user._id})
-            console.log({refresh_token})
+           
             res.cookie('refreshtoken', refresh_token, {
              
                 // httpOnly: true,
@@ -106,11 +100,6 @@ const userCtrl = {
 
 
             })
-
-            console.log(req.cookies)
-
-           console.log("doneeeeee")
-    
 
             res.json({user:user,msg:"Login success"})
 
@@ -127,8 +116,6 @@ const userCtrl = {
         try{
             
             const rf_token = req.cookies.refreshtoken
-
-            console.log({rf_token})
             
            if(!rf_token) return res.status(400).json({msg:'Please login'})
 
@@ -138,8 +125,7 @@ const userCtrl = {
               if(err)   return res.status(400).json({msg:'Please login'})
 
               const access_token = createAccessToken({id: user.id})
-              console.log({access_token})
-              console.log("here")
+            
                res.json({access_token})
               
            })
@@ -157,7 +143,7 @@ const userCtrl = {
             const {email} = req.body
 
             const user = await Users.findOne({email})
-            console.log(email)
+           
             if(!user) return res.status(400).json({msg:"This email does not exist"})
             
             const access_token =createAccessToken({id:user._id})
@@ -179,13 +165,7 @@ const userCtrl = {
         try{
            
             const {password} = req.body
-
-            console.log(password)
-
             const passwordHash = await bcrypt.hash(password, 12)
-            
-            console.log(req.user)
-
             await Users.findOneAndUpdate({_id:req.user.id},{
                 password: passwordHash
             })
@@ -202,10 +182,8 @@ const userCtrl = {
     getUserInfor:async(req,res) =>{
 
         try{
-           console.log(req.user)
+          
             const user = await Users.findById(req.user.id).select('-password')
-            console.log("here user infor")
-            console.log(user)
             res.json(user)
         }catch(err){
             return res.status(500).json({msg:err.message})

@@ -8,9 +8,9 @@ const reviewCtrl = {
 
     getReviews: async (req,res) =>{
        try{
-           console.log(req.user.id)
-           const allReviews = await Reviews.find({review_by:req.user.id}).populate('project');
-           console.log(allReviews)
+        //    console.log(req.user.id)
+           const allReviews = await Reviews.find({review_by:req.user.id}).populate('project',{'name':1}).select(['-comment','-question','-review_by','-project_by']);
+           
            res.status(200).json(allReviews);
        }
        catch(err){
@@ -20,7 +20,7 @@ const reviewCtrl = {
     },
     getReview: async (req,res) =>{
        try{
-        const review = await Reviews.find({review_by:req.user.id,_id:req.params.reviewId});
+        const review = await Reviews.find({review_by:req.user.id,_id:req.params.reviewId}).populate('project');
         res.status(200).json(review);
        }
        catch(err){
@@ -31,8 +31,6 @@ const reviewCtrl = {
     editReview: async (req,res) =>{
        try{
              const { question , comment , status } = req.body;
-             console.log(req.body);
-            
              const reviewUpdate = {
                  question:question,
                  comment:comment,
@@ -42,8 +40,6 @@ const reviewCtrl = {
              res.status(200).json(result); 
        }
        catch(err){
-           console.log(err);
-           console.log("ere")
            return res.status(500).json({message:err});
        }   
             

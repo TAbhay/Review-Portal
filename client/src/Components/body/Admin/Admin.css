@@ -1,0 +1,34 @@
+.single-project-container {
+  /* width: 55%;
+  margin: auto auto; */
+  padding-top: 20px;
+  background-color: #efefef;
+  min-height: 100vh;
+  padding: 10px;
+}
+.item-container{
+  width: 90%;
+  height: 100px;
+  background-color: blue;
+  margin: auto;
+  border:1px solid black;
+  margin: 1rem auto 1rem auto;
+}
+.item-container:hover{
+  display: block;
+}
+.item-header{
+  display: flex;
+  flex-direction: row;
+ justify-content: space-evenly;
+  padding: 0.3rem;
+  font-size: 1.2rem
+}
+.item-title{
+   width: 75%;
+   padding: 5px;
+}
+.item-no{
+   width: 15%;
+   padding: 5px;
+}

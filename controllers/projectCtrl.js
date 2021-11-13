@@ -5,7 +5,7 @@ const projectCtrl = {
    
     addProject : async (req,res) =>{
          try{
-              console.log(req.user.id);
+            //   console.log(req.user.id);
               const { name , description } = req.body;
               const project  = new Projects({
                    name:name,

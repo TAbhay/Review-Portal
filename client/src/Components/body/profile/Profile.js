@@ -23,8 +23,8 @@ function Profile() {
     const auth =useSelector(state =>state.auth)
     const token= useSelector(state =>state.token)
     const users = useSelector(state => state.users)
-
-    console.log(users)
+ 
+    console.log(users,token,auth,"users token auth")
 
     const {user, isAdmin} = auth
     const [data, setData] = useState(initialState)
@@ -217,84 +217,7 @@ function Profile() {
                      placeholder="Confirm Password" value={cf_password} onChange={handleChange} />
 
                   </div>
-
-                  <div>
-                      <em>
-                          *if you update your password here you will not able to login with google or facebook.
-                      </em>
-                  </div>
-
-                  <button disabled={loading} onClick={handleUpdate}>Update</button>
-            </div>
-            <div className="col-right">
-
-                <h2>{isAdmin ? "Users" : "MyOrders"} </h2>
-
-                    <div  style={{overFlowX:"auto"}}>
-                        <table className="customers">
-                            <thead>
-                               <tr>
-                                   <th>ID</th>
-                                   <th>Name</th>
-                                   <th>Email</th>
-                                   <th>Admin</th>
-                                   <th>Action</th>
-
-                               </tr>
-
-
-
-                            </thead>
-
-                            <tbody>
-                                {
-                                   users.map(user => {
-
-                                        <tr key={user._id}>
-
-                                             <td>{user._id}</td>
-                                 
-                                             <td>{user.name}</td>
-                                            
-                                             <td>{user.email}</td>
-                                             
-                                             <td>{
-                                                 
-                                                 user.role === 1
-                                                 ? <i className="fas fa-check" title="Admin"></i>
-                                                 : <i className='fas fa-times' title="User"></i>
-                                                 
-                                                 }
-                                                 
-                                            </td>
-
-                                            <td>
-
-                                                  <Link to={"/edit_user/"+ user._id}>
-                                                      <i className="fas fa-edit" title="Edit"></i>
-                                                  </Link>
-                                                  <i className="fas fa-trash-alt" title="Remove"></i>
-                                            </td>
-                                             
-                                             <td>Action</td>
-
-                                        </tr>
-
-                                   })
-
-                                }
-
-                                   
-
-
-                            </tbody>
-
-                        </table>
-
-
-                    </div>
-
-
+                  <button style={{backgroundColor: '#39CCCC', color: 'white', fontSize: '16px', padding: '6px 40px', borderRadius: '5px', margin: '10px 0px', cursor: 'pointer'}}disabled={loading} onClick={handleUpdate}>Update</button>
             </div>
         </div>
         

@@ -1,5 +1,7 @@
-.project-container {
-  width: 800px;
-  background-color: rgb(37, 136, 223);
-  height: 500px;
+.project-container-lg {
+  width: 85%;
+  background-color: rgb(255, 255, 255);
+  margin: auto auto;
+  margin-top: 10px;
+  border-radius: 5px;
 }

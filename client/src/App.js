@@ -14,8 +14,9 @@ import {
 
 const App = () => {
   const dispatch = useDispatch();
-  const token = useSelector((state) => state.token);
+
   const auth = useSelector((state) => state.auth);
+  const token = useSelector((state) => state.token);
 
   useEffect(() => {
     const firstLogin = localStorage.getItem("firstLogin");
@@ -23,15 +24,16 @@ const App = () => {
       const refreshToken = async () => {
         const res = await axios.get("/user/refresh_token");
         dispatch({ type: "GET_TOKEN", payload: res.data.access_token });
-        return fetchUser(token).then((res) => {
+        console.log("commiing here ")
+        return fetchUser(res.data.access_token).then((res) => {
           dispatch(dispatchGetUser(res));
         });
       };
 
       refreshToken();
     }
-  }, [auth.isLogged, dispatch]);
-
+  }, [auth.isLogged, dispatch,window.location]);
+  
   useEffect(() => {
     if (token) {
       const getUser = () => {

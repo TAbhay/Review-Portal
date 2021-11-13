@@ -9,8 +9,9 @@ import ForgotPassword from "../body/auth/ForgotPassword"
 import ResetPassword from "../body/auth/ResetPassword"
 import Profile from "../body/profile/Profile"
 import Projects from "../body/Projects/projects"
+import Admin from "../body/Admin/Admin"
 //import EditUser from "../body/profile/EditUser"
-import singleProject  from "../body/singleProject/singleproject"
+import SingleProject  from "../body/singleProject/singleproject"
 export default function Body() {
 
     const auth = useSelector(state => state.auth)
@@ -19,14 +20,16 @@ export default function Body() {
        <section>
            
            <Switch>
-                <Route path="/" component={isLogged ? Projects : Login} exact />
+               <Route path="/" component={isLogged ? Projects : Login} exact />
                <Route path="/login" component={isLogged ? NotFound : Login} exact />
                <Route path="/register" component={isLogged ? NotFound : Register} exact />
                <Route path="/profile" component={isLogged ? Profile : NotFound} exact />
                <Route path="/forgot_password" component={isLogged ? NotFound : ForgotPassword} exact />
                <Route path="/user/reset/:token" component={isLogged ? NotFound : ResetPassword} exact />
                <Route path="/user/activate/:activation_token" component={ActivationMail} exact />
-               <Route path="/review/:id" component={singleProject} exact />
+               <Route path="/review" component={Projects} exact />
+               <Route path="/review/:id" component={SingleProject} exact />
+               <Route path="/admin" component={Admin} exact />
              {/* //  <Route path= "/edit_user/:id" comonent={isAdmin ? EditUser : NotFound} exact /> */}
 
            </Switch>

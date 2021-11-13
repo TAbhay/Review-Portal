@@ -3,29 +3,25 @@ import {Link } from 'react-router-dom';
 import './Project.css';
 const Project = (props) =>  {
     const project = props.project;
-    
     const id   = project._id;
     const status = project.status;
-    
     return (
-      <div className="single_project_card single_project_container">
-        <div className="card-item card-title project_heading">
-          <h4>author</h4>
+      <div  className="singleProject">
+        <div className="single_card_item">
+          <h4 >{project.project.name}
+          </h4>
         </div>
-
-        <div className="card_small_conatainer">
-          <Link to={`/review/{${id}}`}>
-            {" "}
-            <div className="edit_icon">
-              <i class="fas fa-edit"></i>
-            </div>{" "}
-          </Link>
-          <p className="card_status_word">Review Status:</p>
+        <div className="single_card_item card_icons">
+           <div className="edit_icon">
+             <Link to={`/review/${id}`}>
+              <i className="fas fa-edit"></i>
+              </Link>
+            </div>
           <div className="card-status">
             {status ? (
-              <i class="fas fa-dot-circle" style={{ color: "green" }}></i>
+              <i className="fas fa-dot-circle" style={{ color: "green" }}></i>
             ) : (
-              <i class="fas fa-dot-circle" style={{ color: "red" }}></i>
+              <i className="fas fa-dot-circle" style={{ color: "red" }}></i>
             )}
           </div>
         </div>

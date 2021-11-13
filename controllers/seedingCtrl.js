@@ -65,7 +65,7 @@ const seedingCtrl = {
             res.json({message:"Inserted"})
         }   
         catch(err){
-            console.log(err)
+            
             res.status(500).json("Something Bad has happened1")
         }    
     },
@@ -102,6 +102,7 @@ const seedingCtrl = {
         try{
             const projects = await Projects.find({});
             const reviewers = await Users.find({role:2});
+            console.log("here")
             const jsons = []
             projects.map((project) =>{
                const temp =  reviewers.sort(() => Math.random() - 0.5);
@@ -118,6 +119,7 @@ const seedingCtrl = {
             res.json(result)
         }
         catch(err){
+            console.log(err)
             res.status(500).json("Something Bad has happened")
         }
     },

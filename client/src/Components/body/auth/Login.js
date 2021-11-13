@@ -37,14 +37,13 @@ export default function Login() {
         try{
 
             const res = await axios.post('/user/login', {email, password})
-            console.log(res)
+          
             setUser({...user , err:'', success:res.data.msg})
 
             localStorage.setItem('firstLogin',true)
             dispatch(dispatchLogin())
             history.push('/')
         }catch(err){
-            console.log(err.response)
             err.response.data.msg && setUser({...user , err:err.response.data.msg, success:""})
         }
     }

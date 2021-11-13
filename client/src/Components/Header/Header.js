@@ -20,7 +20,7 @@ export default function Header() {
       window.location.href = "/";
     } catch (err) {}
   };
-
+  console.log("prvess started")
   const userLink = () => {
     return (
       <li className="drop-nav">
@@ -67,20 +67,20 @@ export default function Header() {
         <header>
             <div className = "logo">
 
-                <h1><Link to="/">Review</Link></h1>
+                <h1><Link to="/" style={{textDecoration:"none"}}>Review</Link></h1>
             </div>
 
             <ul  style={transForm} >
                 
                 {
                     isLogged
-                    ? <li><Link to="/">Projects</Link></li>
-                    :<li><Link to="/login"><i className="fas fa-user"></i> Sign in</Link></li>
+                    ? <li><Link to="/" style={{textDecoration:"none",color:"white"}}>Projects</Link></li>
+                    :<li><Link to="/login"  style={{textDecoration:"none",color:"white"}}><i className="fas fa-user"></i> Sign in</Link></li>
                 } 
                 {
                     isLogged
                     ? <li>
-                    <Link to="/" onClick={handleLogout}>
+                    <Link to="/" style={{textDecoration:"none",color:"white"}} onClick={handleLogout}>
                     Logout
                    </Link>
                    </li>

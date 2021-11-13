@@ -44,7 +44,7 @@ const sendEmail = async (to , url , type) => {
     return info;
 
    } catch(err){
-       console.log(err);
+     
        return res.status(500).json({msg:"Something went wrong"})
    }
 

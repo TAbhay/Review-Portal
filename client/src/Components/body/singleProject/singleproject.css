@@ -3,6 +3,8 @@
   margin: auto auto; */
   padding-top: 20px;
   background-color: #efefef;
+  min-height: 100vh;
+  padding: 10px;
 }
 input[type="text"] {
   padding: 20px 10px;
@@ -71,7 +73,20 @@ input[type="number"] {
   height: 100%;
   border: 1px solid #ededed;
 }
-
-.submit_button{
-  margin-left: 20px;
+.submit_button_div{
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
 }
+.submit_button{
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 50px;
+  width: 200px;
+  height: 60px;
+  margin-top: 40px;
+  text-align: center;
+  font-size: 1.4rem;
+}
+

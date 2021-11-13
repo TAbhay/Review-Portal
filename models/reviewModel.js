@@ -16,14 +16,14 @@ const reviewSchema = new mongoose.Schema({
     },
     question:[
         {
-          Q1:String,
-          Q2:String,
-          Q3:Boolean,
-          Q4:Boolean,
-          Q5:Boolean,
-          Q6:Number,
-          Q7:Number,
-          Q8:Number,
+          Q1:{type:String,default:"fcvc"},
+          Q2:{type:String,default:"bg"},
+          Q3:{type:Boolean,default:0},
+          Q4:{type:Boolean,default:0},
+          Q5:{type:Boolean,default:0},
+          Q6:{type:Number,default:0},
+          Q7:{type:Number,default:0},
+          Q8:{type:Number,default:0},
         }],
     comment:{
         type:String,
