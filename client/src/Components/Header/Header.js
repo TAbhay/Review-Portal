@@ -67,7 +67,7 @@ export default function Header() {
         <header>
             <div className = "logo">
 
-                <h1><Link to="/" style={{textDecoration:"none"}}>Review</Link></h1>
+                <h1><Link to="/" style={{textDecoration:"none",color:"white"}}>Review</Link></h1>
             </div>
 
             <ul  style={transForm} >

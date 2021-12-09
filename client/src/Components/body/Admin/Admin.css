@@ -8,10 +8,10 @@
 }
 .item-container{
   width: 90%;
-  height: 100px;
-  background-color: blue;
+  min-height: 130px;
+  background-color: rgb(220, 220, 233);
   margin: auto;
-  border:1px solid black;
+  padding: 10px;
   margin: 1rem auto 1rem auto;
 }
 .item-container:hover{
@@ -31,4 +31,30 @@
 .item-no{
    width: 15%;
    padding: 5px;
+}
+.item-project{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+.dropdown{
+  width: 80%;
+  min-height: 40px;
+  border: 1px solid black;
+  /* visibility: hidden; */
+   /* display: none;  */
+  /* transition:1s; */
+  /* overflow-y: hidden; */
+}
+/* .dropdown:hover{
+  display: block;
+  height: 50px;
+  overflow-y: visible;
+} */
+
+.hellodiv{
+  height: 200px;
+  width: 200px;
+  background-color: red;
+  z-index: 5;
 }

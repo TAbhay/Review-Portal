@@ -43,6 +43,7 @@ const SingleProject = (props) => {
         }) 
         var answer = response.data[0].question[0]
       
+        console.log(answer)
         setQuestion({
           Q1:answer.Q1,
           Q2:answer.Q2,
@@ -166,6 +167,8 @@ const SingleProject = (props) => {
               type="text"
               id="input"
               name="Q1"
+              cols={40} 
+              rows={3}
               value={question.Q1}
               onChange={handleInputChange}
               required                      
@@ -181,6 +184,8 @@ const SingleProject = (props) => {
               type="text"
               id="input"
               name="Q2"
+              cols={40} 
+              rows={3}
               value={question.Q2}
               onChange={handleInputChange} 
               required
@@ -191,21 +196,21 @@ const SingleProject = (props) => {
               Does the project match the broad domain of TIH-IITP
               (speech-vision-text).
             </label>
-            <input className="label-input" type="checkbox" id="input"  name="Q3"   defaultChecked={question.Q4==1?true:false}  onChange={handleInputChangeBox} required />
+            <input className="label-input" type="checkbox" id="input"  name="Q3"   checked={question.Q3}  onChange={handleInputChangeBox} required />
           </div>
           <div className="question">
             <label className="label">
               Does the project have any potential to make a product or can it
               lead to a startup?
             </label>
-            <input className="label-input" type="checkbox" id="input" name="Q4"  defaultChecked={question.Q4==1?true:false} onChange={handleInputChangeBox} required />
+            <input className="label-input" type="checkbox" id="input" name="Q4"  checked={question.Q4} onChange={handleInputChangeBox} required />
           </div>
           <div className="question">
             <label className="label">
               Does the proposal have research challenges in comparison with
               current state-of-the-art?
             </label>
-            <input className="label-input" type="checkbox" id="input"  defaultChecked={question.Q4==1?true:false} name="Q5"  onChange={handleInputChangeBox} required  />
+            <input className="label-input" type="checkbox" id="input"  checked={question.Q5} name="Q5"  onChange={handleInputChangeBox} required  />
           </div>
           <div className="question">
             <label className="label">
@@ -258,11 +263,12 @@ const SingleProject = (props) => {
           </div>
           <div className="question">
             <label className="label">Confidential comments to TIH-IITP</label>
-            <input
+            <textarea
               className="label-input form-control"
               type="text"
               id="input"
               name="comment"
+              cols={40} rows={2}
               onChange={handleInputChange} 
               value={question.comment}
               required

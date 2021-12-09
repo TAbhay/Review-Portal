@@ -10,6 +10,7 @@ const Admin = () => {
   const token= useSelector(state =>state.token)
   const users = useSelector(state => state.users)
   const [result,setResult] = useState([])
+  const [open,setOpen]  = useState(0)
   const fetchResult = async() =>{
      try{
        const response  = await axios.get(`/admin/result`,{
@@ -26,43 +27,56 @@ const Admin = () => {
   useEffect(()=>{
       fetchResult();
   },[])
-  const renderReviews = (reviews)=>{
-        reviews.map((review) =>{
+  const renderReviews = (projects)=>{
+        projects.map((project) =>{
+          console.log("hrer running")
           return(
              <div>
-
+             <h1>Hello</h1>
              </div>
           )
         });
   }
+  const handlehelloclick = () => {
+    console.log("here clicked the bttn")
+    return (
+      <div className="hellodiv">Hello world</div>
+    )
+  }
   const renderProjects = result.map((item)=>{  
-    console.log(item.projects[0].reviews[0].answer)
+    console.log("answer",item.projects[0].reviews[0].answer)
     return(
+
         <div className="item-container">
            <div className="item-header">
              <div className="item-title">{item._id.name}</div>
              <div className="item-no">{item.projects.length}</div>
            </div>
-           <div className="item-project">
-             <div className="item-project-card">
-               <div className="item-project-title">{item.projects[0]._id.project_name}</div>
-               <div className="item-review">R1</div>
-               <div>
-                 <ul>
-                   <li>fdsf</li>
-                   <li>fd</li>
-                   <li>fd</li>
-                   <li>df</li>
-                   <li>fds</li>
-                   <li>fsd</li>
-                   <li>fsd</li>
-                   <li>fd</li>
-                   <li>fsd</li>
-                   <li>fs</li>
-                 </ul>
-               </div>
-             </div>
-           </div>
+           <div onClick={handlehelloclick}>Hello</div>
+           {
+             item.projects.map((project) => {
+               console.log("inner map",project);
+               return(
+                 <div>
+                <div className="item-project"> 
+                    <div>{project._id.project_name}</div> 
+                    <div onClick={(e)=>{setOpen(!open)}}>Reviews &nbsp;&nbsp;&nbsp;&nbsp; <i class="fa fa-eye" aria-hidden="true"></i></div>       
+                </div>
+                {/* <div className="dropdown">
+                { open==1?(
+                          <div className="personCard">
+                            <p> Namee </p>
+                            <p> Age</p>
+                            <p> Address: </p>
+                          </div>
+                  ):<div></div> }
+                <p>Lorem </p>
+                </div> */}
+                </div>
+               )
+             })
+           }
+           
         </div>
         );
   });
