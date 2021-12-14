@@ -1,4 +1,4 @@
-header{
+ header{
 
     width: 100%;
     min-height: 100px;
@@ -66,8 +66,25 @@ header ul li img{
 
 
 .drop-nav:hover .dropdown{
-
-    display: block;
+     display: block;
 }
+
+
+.hamburger{
+    color:white;
+    height: 5px;
+    display: none;
+}
+
+@media only screen and (max-width: 720px) {
+    header{
+        flex-direction: column;
+    }
+    .list-items{
+      
+   }
+  }
+
+  
 
 

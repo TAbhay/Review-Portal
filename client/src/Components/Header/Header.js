@@ -21,60 +21,28 @@ export default function Header() {
     } catch (err) {}
   };
   console.log("prvess started")
-  const userLink = () => {
-    return (
-      <li className="drop-nav">
-        <Link to="#" className="avatar">
-          {user.name}
-
-          <i className="fas fa-arrow-down"></i>
-        </Link>
-
-        <ul className="dropdown">
-          <li>
-            <Link to="/profile">Profile</Link>
-          </li>
-
-          <li>
-            <Link to="/" onClick={handleLogout}>
-              Logout
-            </Link>
-
-            <ul className="dropdown">
-
-                <li>
-                 <Link to="/profile">
-                 Profile
-                </Link>
-                </li>
-
-                <li>
-                 <Link to="/" onClick={handleLogout}>
-                 Logout
-                </Link>
-                </li>
-            </ul>
-        </li>
-        </ul>
-        </li>
-    )}
-
-
-    const transForm = {
-        transform: isLogged ? "translateY(-5px)" : 0 
-    }
+ 
+    // const transForm = {
+    //     transform: isLogged ? "translateY(-5px)" : 0 
+    // }
     return (
         <header>
             <div className = "logo">
 
                 <h1><Link to="/" style={{textDecoration:"none",color:"white"}}>Review</Link></h1>
             </div>
-
-            <ul  style={transForm} >
+            <div className="list-items">
+            <ul   >
+            {/* <ul  style={transForm} > */}
                 
                 {
                     isLogged
                     ? <li><Link to="/" style={{textDecoration:"none",color:"white"}}>Projects</Link></li>
+                    :<li><Link to="/login"  style={{textDecoration:"none",color:"white"}}><i className="fas fa-user"></i> Sign in</Link></li>
+                } 
+                 {
+                    isLogged
+                    ? <li><Link to="/Profile" style={{textDecoration:"none",color:"white"}}>Profile</Link></li>
                     :<li><Link to="/login"  style={{textDecoration:"none",color:"white"}}><i className="fas fa-user"></i> Sign in</Link></li>
                 } 
                 {
@@ -86,7 +54,10 @@ export default function Header() {
                    </li>
                     :<li></li>
                 }
+                <i class="fas fa-bars hamburger"></i>
             </ul>
+            </div>
         </header>
+    
     )
 }

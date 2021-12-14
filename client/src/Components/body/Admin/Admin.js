@@ -61,7 +61,7 @@ const Admin = () => {
                 <div className="item-project"> 
                     <div>{project._id.project_name}</div> 
                     <div onClick={(e)=>{setOpen(!open)}}>Reviews &nbsp;&nbsp;&nbsp;&nbsp; <i class="fa fa-eye" aria-hidden="true"></i></div>       
-                </div>
+                 </div>
                 {/* <div className="dropdown">
                 { open==1?(
                           <div className="personCard">
