@@ -3,6 +3,8 @@ const Projects = require('../models/projectModel')
 const Reviews = require('../models/reviewModel')
 const bcrypt = require("bcrypt")
 const mongoose = require("mongoose")
+const Fakerator = require("fakerator");
+const fakerator = Fakerator();
 
 const reviewers = [
     {   name:"test",  
@@ -58,9 +60,13 @@ const users = [
         password:  bcrypt.hashSync('123456',10),
     }
 ]
+const getUsers = (size) => {
+    
+}
 const seedingCtrl = {
     userSeeder: async(req,res)=>{
         try{
+            const usersList = getUsers(5)
             const createdUsers = await Users.insertMany(users);
             res.json({message:"Inserted"})
         }   

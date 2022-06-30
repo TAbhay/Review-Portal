@@ -1,0 +1,52 @@
+.project-container-lg {
+  width: 85%;
+  background-color: rgb(255, 255, 255);
+  margin: auto auto;
+  margin-top: 20px;
+  border-radius: 5px;
+}
+
+.singleProject{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  font-size: 1rem;
+  padding: 10px;
+  margin:20px;
+
+}
+.single_card_item{
+  width: 40%;
+}
+.card_icons{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+.singleProject:hover{
+  box-shadow: 0px 20px 40px rgba(0,0,0,0.4);
+  border-radius: 10px;
+  transform: translateY(-0.25em);
+  transition: all 500ms ease;
+}
+.add_button{
+  background-color: #0d6efd;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  width: 200px;
+  height: 50px;
+  text-align: center;
+  font-size: 1.4rem;
+  margin-top: 2px;
+}
+.dialog_box h4 {
+  margin-top: 20px;
+}
+@media screen and (max-width:640px) {
+  .singleProject{
+    flex-direction: column;
+  }
+  
+}

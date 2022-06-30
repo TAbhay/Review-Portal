@@ -1,167 +1,157 @@
-import React , {useState, useEffect} from 'react'
+import React , {useState} from 'react'
 import axios from "axios"
-import {useSelector, useDispatch} from "react-redux"
-import {Link} from "react-router-dom"
+import {useSelector} from "react-redux"
 import {isLength, isMatch} from "../../utils/validation/Validation"
 import {showSuccessMsg,showErrMsg} from "../../utils/notifications/Notification"
 import "./profile.css"
-import {fetchAllUsers , dispatchGetAllUsers} from "../../../redux/actions/usersAction"
 
 
 
-const initialState ={
 
-    name:"",
-    password:"",
-    cf_password:"",
-    err:'',
-    success:"",
-}
+// const initialState ={
 
-function Profile() {
+//     name:"",
+//     password:"",
+//     cf_password:"",
+//     err:'',
+//     success:"",
+// }
 
-    const auth =useSelector(state =>state.auth)
-    const token= useSelector(state =>state.token)
-    const users = useSelector(state => state.users)
+const Profile = () => {
+
+    // const auth =useSelector(state =>state.auth)
+    // const token= useSelector(state =>state.token)
+    // const users = useSelector(state => state.users)
  
-    console.log(users,token,auth,"users token auth")
+    // console.log(users,token,auth,"users token auth")
 
-    const {user, isAdmin} = auth
-    const [data, setData] = useState(initialState)
-    const [avatar, setAvatar] = useState(false)
-    const [loading,setLoading] = useState(false)
-    const [callback, setCallback] = useState(false)
+    // const {user, isAdmin} = auth
+    // const [data, setData] = useState(initialState)
+    // const [avatar, setAvatar] = useState(false)
+    // const [loading,setLoading] = useState(false)
 
 
-    const {name,email,password,cf_password,err,success} = data
-    const dispatch = useDispatch()
-    useEffect(()=>{
-        if(isAdmin){
-            return fetchAllUsers(token).then(res =>{
-                dispatch(dispatchGetAllUsers(res))
+    // const {name,email,password,cf_password,err,success} = data
+  
 
-            })
-        }
+    // const changeAvatar = async(e) => {
 
-    },[token, isAdmin, dispatch,callback])
+    //     e.preventDefault()
 
-    const changeAvatar = async(e) => {
+    //     try{
 
-        e.preventDefault()
+    //         const file = e.target.files[0]
 
-        try{
+    //         if(!file) return setData({...data, err:"No file uploaded", success:""})
 
-            const file = e.target.files[0]
+    //         if(file.size > 1024*1024) return setData({...data, err:"file is too large", success:""})
 
-            if(!file) return setData({...data, err:"No file uploaded", success:""})
+    //         if(file.type !== "image/jpeg" && file.type !=="image/png") return setData({...data, err:"invalid format" , success:""})
 
-            if(file.size > 1024*1024) return setData({...data, err:"file is too large", success:""})
+    //         let formData = new FormData()
 
-            if(file.type !== "image/jpeg" && file.type !=="image/png") return setData({...data, err:"invalid format" , success:""})
+    //         formData.append("file",file)
 
-            let formData = new FormData()
+    //         setLoading(true)
+    //         const res = await axios.post('/api/upload_avatar',formData,{
+    //             headers: {"content-type":"multipart/form-data", Authorization:token}
+    //         })
 
-            formData.append("file",file)
+    //         setLoading(false)
+    //         setAvatar(res.data.url)
 
-            setLoading(true)
-            const res = await axios.post('/api/upload_avatar',formData,{
-                headers: {"content-type":"multipart/form-data", Authorization:token}
-            })
+    //     }catch(err){
 
-            setLoading(false)
-            setAvatar(res.data.url)
-
-        }catch(err){
-
-            setData({...data, err:err.response.data.msg, success:""})
+    //         setData({...data, err:err.response.data.msg, success:""})
 
 
 
-        }
-    }
+    //     }
+    // }
 
 
 
-    const handleChange = e =>{
+    // const handleChange = e =>{
 
-        const {name, value} = e.target
-        setData({...data, [name]:value, err:'', success:''})
-
-
-    }
+    //     const {name, value} = e.target
+    //     setData({...data, [name]:value, err:'', success:''})
 
 
+    // }
 
-    const updatePassword = () => {
 
-        if(isLength(password))
-            return setData({...data,err:'Password must be at least 6 characters length', success:''})
+
+    // const updatePassword = () => {
+
+    //     if(isLength(password))
+    //         return setData({...data,err:'Password must be at least 6 characters length', success:''})
         
 
-        if(!isMatch(password,cf_password))
-            return setData({...data,err:"Password does not match", success:""})
+    //     if(!isMatch(password,cf_password))
+    //         return setData({...data,err:"Password does not match", success:""})
 
 
-        try{
+    //     try{
 
-           axios.post('/user/reset',{
-              password
-           },{
-               headers: {Authorization : token}
-           })
+    //        axios.post('/user/reset',{
+    //           password
+    //        },{
+    //            headers: {Authorization : token}
+    //        })
 
-           setData({...data, err:"", success:'Updated successfully'})
+    //        setData({...data, err:"", success:'Updated successfully'})
        
        
-        } catch(err){
+    //     } catch(err){
 
-            setData({...data, err: err.response.data.msg, success:""})
-        }
-
-
-    }
+    //         setData({...data, err: err.response.data.msg, success:""})
+    //     }
 
 
+    // }
 
-    const updateInfor = () => {
 
-        try{
 
-           axios.patch('/user/update',{
-               name: name ? name : user.name,
-               avatar: avatar ? avatar : user.avatar,
+    // const updateInfor = () => {
 
-           },{
-               headers: {Authorization : token}
-           })
+    //     try{
 
-           setData({...data, err:"", success:'Updated successfully'})
+    //        axios.patch('/user/update',{
+    //            name: name ? name : user.name,
+    //            avatar: avatar ? avatar : user.avatar,
+
+    //        },{
+    //            headers: {Authorization : token}
+    //        })
+
+    //        setData({...data, err:"", success:'Updated successfully'})
        
        
-        } catch(err){
+    //     } catch(err){
 
-            setData({...data, err: err.response.data.msg, success:""})
-        }
-
-
-    }
+    //         setData({...data, err: err.response.data.msg, success:""})
+    //     }
 
 
+    // }
 
 
-    const handleUpdate = () => {
 
-        if(name || avatar) updateInfor()
-        if(password) updatePassword()
 
-    }
+    // const handleUpdate = () => {
+
+    //     if(name || avatar) updateInfor()
+    //     if(password) updatePassword()
+
+    // }
 
 
 
 
     return (
         <>
-        <div>
+        <h1>Profile</h1>
+        {/* <div>
             {err && showErrMsg(err)}
             {success && showSuccessMsg(success)}
             {loading && <h3>Loading...</h3>}
@@ -219,7 +209,7 @@ function Profile() {
                   </div>
                   <button style={{backgroundColor: '#39CCCC', color: 'white', fontSize: '16px', padding: '6px 40px', borderRadius: '5px', margin: '10px 0px', cursor: 'pointer'}}disabled={loading} onClick={handleUpdate}>Update</button>
             </div>
-        </div>
+        </div> */}
         
     </>
     )

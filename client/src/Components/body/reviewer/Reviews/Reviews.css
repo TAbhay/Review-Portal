@@ -1,0 +1,39 @@
+.project-container-lg {
+  width: 85%;
+  background-color: rgb(255, 255, 255);
+  margin: auto auto;
+  margin-top: 10px;
+  border-radius: 5px;
+}
+
+.singleProject{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  font-size: 1rem;
+  padding: 10px;
+  margin:20px;
+
+}
+.single_card_item{
+  width: 40%;
+}
+.card_icons{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+.singleProject:hover{
+  box-shadow: 0px 20px 40px rgba(0,0,0,0.4);
+  border-radius: 10px;
+  transform: translateY(-0.25em);
+  transition: all 500ms ease;
+}
+
+@media screen and (max-width:640px) {
+  .singleProject{
+    flex-direction: column;
+  }
+  
+}

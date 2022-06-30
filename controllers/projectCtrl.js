@@ -13,7 +13,7 @@ const projectCtrl = {
                    project_by:req.user.id,
               });
               const result = await project.save();
-              res.status(200).json({message:result});
+              res.status(200).json({result:result});
          }   
          catch(err){
              res.status(500).send({message:err.message});

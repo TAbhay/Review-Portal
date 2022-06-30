@@ -1,0 +1,128 @@
+.single-project-container {
+  /* width: 55%;
+  margin: auto auto; */
+  padding-top: 20px;
+  background-color: #efefef;
+  min-height: 100vh;
+  padding: 10px;
+}
+input[type="text"] {
+  padding: 20px 10px;
+  line-height: 28px;
+}
+input[type="number"] {
+  outline: none;
+  width: 5vw;
+  -moz-appearance: textfield;
+}
+input[type=checkbox] {
+  position: relative;
+  cursor: pointer;
+}
+input[type=checkbox]:before {
+  content: "";
+  display: block;
+  position: absolute;
+  width:25px;
+  height: 25px;
+  top: 0;
+  left: 0;
+  border: 2px solid #c5c5c5;
+  border-radius: 3px;
+  background-color: white;
+}
+input[type=checkbox]:checked:after {
+  content: "";
+  display: block;
+  width: 10px;
+  height: 15px;
+  border: solid black;
+  border-width: 0 2px 2px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+  position: absolute;
+  top: 2px;
+  left: 6px;
+}
+
+.project-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding: 10px;
+}
+.project-title {
+  padding: 5px;
+}
+.project-description {
+  padding: 5px;
+}
+.question {
+  min-height: 80px;
+  display: flex;
+  padding: 0;
+  flex-direction: column;
+  justify-content: space-around;
+  /* border: solid;
+  border-radius: 5px;
+  border-width: 2px; */
+  margin-top: 5px;
+  margin-bottom: 5px;
+  padding: 10px;
+}
+
+.label {
+  margin: 2px 2px;
+  font-size: medium;
+  font-weight: bold;
+  color: #000000be;
+}
+.question-body h4{
+  text-align: center;
+  font-size: 40px;
+}
+
+.quiz-question {
+  font-weight: 300;
+  padding: 15px 0 10px 0;
+}
+.quiz-question-strong {
+  font-weight: 600;
+  padding: 15px 0 10px 0;
+}
+.quiz-answer {
+  margin: 12px 0 20px 0;
+}
+.quiz-group {
+  margin: 8px 0;
+}
+
+.quiz-footer {
+  margin: 15px 0 0 0;
+  text-align: center;
+  border-top: 1px solid #ddd;
+  padding: 15px;
+}
+.quiz-yn-group {
+  background: #fff;
+  height: 100%;
+  border: 1px solid #ededed;
+}
+.submit_button_div{
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.submit_button{
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 50px;
+  width: 200px;
+  height: 60px;
+  margin-top: 40px;
+  text-align: center;
+  font-size: 1.4rem;
+}
+

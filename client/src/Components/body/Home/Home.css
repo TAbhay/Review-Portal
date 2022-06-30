@@ -1,0 +1,112 @@
+.container {
+    width: 1170px;
+    min-height: 80vh;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center
+}
+
+/* Start Landing Page */
+
+.landing-page {
+    position: relative;
+    background-color: #FFF;
+}
+
+
+.landing-page .info {
+    width: 35%;
+    float: left;
+    margin-top: 130px;
+}
+
+.landing-page .info h1 {
+    font-size: 50px;
+    font-weight: bolder;
+    margin: 0 0 20px;
+    line-height: 1.4;
+    color: #000000;
+}
+
+.landing-page .info p {
+    margin: 0;
+    line-height: 1.6;
+    font-size: 15px;
+    color: #5d5d5d;
+}
+
+.landing-page .info button {
+    border: 0;
+    width: 200px;
+    border-radius: 10px;
+    padding: 12px 30px;
+    margin-top: 30px;
+    cursor: pointer;
+    color: #FFF;
+    background-color: #3429fa;
+}
+
+.landing-page .image {
+    width: 50%;
+    float: right;
+    margin-top: 35px;
+    display: flex;
+    align-items: center;
+}
+
+.landing-page .image img {
+    max-width: 100%;
+}
+
+.clearfix {
+  clear: both;
+}
+
+/* End Landing Page */
+
+@media screen and (max-width:990px) {
+    .container {
+       flex-direction: column-reverse;
+    }
+    .landing-page .info {
+        min-width: 80vw;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 20px;
+    }
+    .landing-page .info h1 {
+        font-size: 30px;
+        font-weight: bolder;
+        min-width: 80%;
+        margin: 0 0 20px;
+        line-height: 1.4;
+        color: #000000;
+        text-align: center;
+    }
+    .landing-page .info h3 {
+        text-align: center;
+    }
+    .landing-page .info p {
+        margin: 0;
+        line-height: 1;
+        font-size: 15px;
+        color: #5d5d5d;
+        text-align: center;
+    }
+    
+    .landing-page .info button {
+        width: 150px;
+        border-radius: 8px;
+        padding: 6px 15px;
+        margin-top: 20px;
+    }
+    
+    .landing-page .image {
+        width: 80%;
+    }
+    
+  }
