@@ -21,7 +21,7 @@
   
   
   .nav-logo {
-    color: #a92ae0;
+    color: #17cc78;
     align-items: center;
     margin-left: 80px;
     margin-top: -20px;
@@ -40,7 +40,7 @@
   }
   
   .nav-links {
-    color: #a92ae0;
+    color: #17cc78;
     text-decoration: none;
     padding: 0.5rem 1rem;
     font-weight: bold;
@@ -71,7 +71,9 @@
     text-decoration: none;
     color: white;
   }
-  
+  .nav-links :hover {
+    color: #0d9460
+  }
   .nav-item.active {
     color: #ffdd40;
     border: 1px solid #ffdd40;
@@ -105,13 +107,14 @@
 
     }
     .nav-item .active {
-      color: #a92ae0;
+      color: #17cc78;
       border: none;
     }
     .nav-links {
       padding: 1.5rem;
       width: 100%;
       display: table;
+      /* color:#0d9460; */
     }
   
     .nav-icon {
@@ -122,10 +125,10 @@
       transform: translate(-100%, 60%);
       font-size: 1.8rem;
       cursor: pointer;
-      color: #a92ae0;
+      color: #17cc78;
     }
     .nav-logo {
-      color: #a92ae0;
+      color: #17cc78;
       align-items: center;
       margin-left: 40px;
       margin-top: -2px;

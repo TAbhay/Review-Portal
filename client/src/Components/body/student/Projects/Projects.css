@@ -31,10 +31,10 @@
   transition: all 500ms ease;
 }
 .add_button{
-  background-color: #0d6efd;
+  background-color: #0d9460;
   color: white;
   border: none;
-  border-radius: 20px;
+  border-radius: 10px;
   width: 200px;
   height: 50px;
   text-align: center;

@@ -29,6 +29,18 @@ export default function Header() {
                     </Link>
                     <ul className={click ? "nav-menu active" : "nav-menu"}>
                         {isStudent && (
+                            <>
+                            <li className="nav-item">
+                                        <Link
+                                            exact
+                                            to=""
+                                            activeClassName="active"
+                                            className="nav-links"
+                                            onClick={click ? handleClick : null}
+                                        >
+                                            Home
+                                        </Link>
+                                    </li>
                             <li className="nav-item">
                                 <Link
                                     exact
@@ -40,9 +52,22 @@ export default function Header() {
                                     Projects
                                 </Link>
                             </li>
+                            </>
                         )
                         }
                         {isReviewer && (
+                            <>
+                            <li className="nav-item">
+                                        <Link
+                                            exact
+                                            to=""
+                                            activeClassName="active"
+                                            className="nav-links"
+                                            onClick={click ? handleClick : null}
+                                        >
+                                            Home
+                                        </Link>
+                                    </li>
                             <li className="nav-item">
                                 <Link
                                     exact
@@ -54,11 +79,13 @@ export default function Header() {
                                     Reviews
                                 </Link>
                             </li>
+                            </>
                         )
                         }
                         {
                             isLogged ?
                                 <>
+                                
                                     <li className="nav-item">
                                         <Link
                                             esxact
@@ -84,6 +111,17 @@ export default function Header() {
                                 </>
                                 :
                                 <>
+                                 <li className="nav-item">
+                                        <Link
+                                            exact
+                                            to=""
+                                            activeClassName="active"
+                                            className="nav-links"
+                                            onClick={click ? handleClick : null}
+                                        >
+                                            Home
+                                        </Link>
+                                    </li>
                                     <li className="nav-item">
                                         <Link
                                             exact

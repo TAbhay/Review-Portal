@@ -15,6 +15,14 @@ const projectSchema = new mongoose.Schema({
         type:String,
         trim:true,
     },
+    tag_one:{
+        type:String,
+        trim:true,
+    },
+    tag_two:{
+        type:String,
+        trim:true,
+    },
     is_deadline:{
         type:Number,
         default:0

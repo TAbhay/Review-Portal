@@ -4,6 +4,8 @@ const cors = require("cors")
 const cookieParser = require("cookie-parser")
 const configDb = require("./config/db");
 const morgan    = require("morgan")
+const fileUpload = require('express-fileupload')
+const path = require('path')
 configDb();
 
 // eslint-disable-next-line no-undef
@@ -14,11 +16,17 @@ app.use(cors({ origin: true, credentials: true }));
 app.use(express.json())
 app.use(cookieParser())
 app.use(morgan("tiny"));
+app.use(
+	fileUpload({
+		useTempFiles: true,
+	})
+)
 app.use('/admin',require('./routes/adminRouter'));
 app.use('/seeder',require('./routes/seedRouter'));
 app.use('/user', require('./routes/userRouter'));
 app.use('/api',require('./routes/projectRouter'));
 app.use('/api',require('./routes/reviewRouter'));
+app.use('/api', require('./routes/upload'))
 
 app.get("/", (req, res) => {
   res.status(200).send("Api is running!");

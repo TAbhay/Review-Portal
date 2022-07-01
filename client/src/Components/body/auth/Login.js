@@ -6,7 +6,7 @@ import axios from "axios"
 import {showErrMsg, showSuccessMsg} from "../../utils/notifications/Notification"
 import {dispatchLogin} from "../../../redux/actions/authAction"
 import {useDispatch} from "react-redux"
-
+import bg4 from "../../../Images/bg4.jpg"
 const initialState = {
     email:"",
     password:"",
@@ -49,6 +49,10 @@ export default function Login() {
     }
 
     return (
+        <div className="login_container">
+        <div className="login_image">
+                <img src={bg4} />
+        </div>
         <div className="login_page">
             <h3>Login to Your Account</h3>
 
@@ -81,6 +85,7 @@ export default function Login() {
 
             <p>New here ? <Link to="/register">Register</Link></p>
 
+        </div>
         </div>
     )
 }

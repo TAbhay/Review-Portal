@@ -29,7 +29,7 @@ const userSchema = new mongoose.Schema({
 
     avatar:{
         type:String,
-        default:"https://bibliosud.omekas.mind-and-go.net/files/large/17ea8760c7dc81909f032ce92d94e4f340b1585a.jpg"
+        default:"https://res.cloudinary.com/abhay24/image/upload/v1656657236/images/tavy4acwnl8pt1ask2dg.jpg"
     },
 
 },{

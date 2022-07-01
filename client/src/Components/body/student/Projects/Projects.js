@@ -29,6 +29,7 @@ const Projects = () => {
     fetchProjects();
   }, []);
   const closeBox = () => {
+    setData({...data, err: "", success: ""});
     setDialog(false)
   }
   const handleInputChange = (e) => {
@@ -72,7 +73,7 @@ const Projects = () => {
             <ReactDialogBox
               closeBox={closeBox}
               modalWidth='80%'
-              headerBackgroundColor='#212529'
+              headerBackgroundColor='#0d9460'
               headerTextColor='white'
               headerHeight='65'
               closeButtonColor='white'

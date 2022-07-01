@@ -5,11 +5,6 @@ const nodemailer = require('nodemailer')
 // send mail
 
 const sendEmail = async (to , url , type) => {
-    // oauth2Client.setCredentials({
-    //     refresh_token: MAILING_SERVICE_REFRESH_TOKEN
-    // })
-
-   // const accessToken = oauth2Client.getAccessToken()
    try {
     const smtpTransport = nodemailer.createTransport({
 

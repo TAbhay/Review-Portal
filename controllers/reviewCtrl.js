@@ -9,21 +9,30 @@ const reviewCtrl = {
     getReviews: async (req,res) =>{
        try{
         //    console.log(req.user.id)
-           const allReviews = await Reviews.find({review_by:req.user.id}).populate('project',{'name':1}).select(['-comment','-question','-review_by','-project_by']);
-           
+           const allReviews = await Reviews.find({review_by:req.user.id}).populate('project',{'name':1}).populate('project_by').select(['-password','-email','-avatar']).select(['-comment','-question','-review_by']);
+           for(var i = 0 ; i < allReviews.length ; i++){
+                    allReviews[i].project_by.password = null;
+                    allReviews[i].project_by.email = null;
+           }
+           console.log(allReviews)
            res.status(200).json(allReviews);
        }
        catch(err){
+        console.log(err)
            return res.status(500).json({message:"Some error occured  !! 3 "});
        }   
          
     },
     getReview: async (req,res) =>{
        try{
-        const review = await Reviews.find({review_by:req.user.id,_id:req.params.reviewId}).populate('project');
+        const review = await Reviews.find({review_by:req.user.id,_id:req.params.reviewId}).populate('project').populate('project_by').select(['-password','-email','-avatar']);
+        console.log(review);
+        review[0].project_by.password = null;
+        review[0].project_by.email = null;
         res.status(200).json(review);
        }
        catch(err){
+        console.log(err)
            return res.status(500).json({message:"Some error occured !! 2"});
        }
        

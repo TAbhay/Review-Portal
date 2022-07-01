@@ -21,19 +21,21 @@ export default function Body() {
     return (
         <div style={{minHeight:'84vh'}}>
           <Switch>
-                 <Route path="/" component={isLogged ? Home : Login} exact />
+                 <Route path="/" component={Home} exact />
                 {
                     isStudent &&
                     <>
-                        <Route path="/project" component={isLogged ? Projects : Login} exact />
+                        <Route path="/project" component={isLogged? Projects : Login} exact />
                         {/* <Route path="/project/:id" component={Admin} exact /> */}
+                        <Route path="/profile" component={isLogged ? Profile : Login} exact />
                     </>
                 }
                 {
                     isReviewer &&
                     <>
                         <Route path="/review" component={isLogged ? Reviews : Login} exact />
-                        <Route path="/review/:id" component={isLogged ? ReviewComponent : Login} exact />
+                        <Route path="/review/:id" component={ isLogged ? ReviewComponent : Login} exact />
+                        <Route path="/profile" component={isLogged ? Profile : Login} exact />
 
                     </>
                 }
@@ -41,7 +43,7 @@ export default function Body() {
                 {
                     isLogged ? 
                     <>
-                    <Route path="/profile" component={Profile} exact />
+                    
                     <Route path="/forgot_password" component={ForgotPassword} exact />
                     <Route path="/user/reset/:token" component={ResetPassword} exact />
                     <Route path="/login" component={NotFound} exact />

@@ -11,11 +11,18 @@
    padding: 0 10px;
    margin: auto;
 }
+.profile_page .col-right{
+
+  max-width: 400px;
+  min-width: 300px;
+  padding: 0 10px;
+  margin: auto;
+}
 
 .profile_page .col-left .avatar{
 
-   width:150px;
-   height: 150px;
+   width:100px;
+   height: 100px;
    overflow:hidden;
    position: relative;
    margin: 15px auto;
@@ -59,7 +66,8 @@
 
 .profile_page .col-left .avatar:hover span{
 
-   bottom: -15px;
+   bottom: 0;
+   font-size: 12px;
 
 }
 
@@ -137,35 +145,14 @@
 
 }
 
-
-.customers{
-
-  border-collapse: collapse;
+.profile_image {
   width: 100%;
+  float: right;
+  display: flex;
+  align-items: center;
 }
 
-.customers td,
-.customers th{
-
-   border: 1px solid #ddd;
-   padding: 8px;
-   min-width: 100px;
+.profile_image img {
+  max-width: 100%;
 }
-
-
-.customers tr:nth-child(even){
-
-  background: #f2f2f2;
-
-}
-
-
-.customers th{
-
-  padding: 12px 0;
-  text-align: left;
-  background: #555;
-  color: white;
-}
-
 

@@ -51,10 +51,14 @@ const Project = () => {
         setData({ err: "Error occurred", success: "" });
     }
   }
+ 
   const renderProjects = projects?.map((item) => {
     const projectName = item.name;
     const id = item._id;
     const status = item.is_deadline;
+    const tech_one = item.tag_one
+    const tech_two = item.tag_two
+    var tech = {Node:"lightgreen",Mongodb:"#F7CA18",Python:"#26C281",React:"#19B5FE",Angular:"#F22613",SQL:"orange",C:"#003171",Express:"#BF55EC"};
     return (
       // <div className="singleProject">
       //   <div className="single_card_istem">
@@ -79,15 +83,20 @@ const Project = () => {
           <div className="card_header"  style={{ display:'flex',justifyContent:'space-between',padding: "8px",textAlign:'left'}}>
             <h5>{projectName}</h5>
             <div className="edit_icon" style={{marginRight: "30px"}}>
-              <i class="material-icons" style={{fontSize:'48px',color:'#0d6efd'}}></i>
+              <i class="material-icons"  style={{fontSize:'30px',color:'#0d6efd'}}>assignment</i>
             </div>
-            <i class="fa-thin fa-diagram-project"></i>
           </div>
           <div className="">
             <h6 style={{marginTop:'-15px',padding: "8px",textAlign:'left'}}>Description</h6>
             <p style ={{ marginTop:'-15px', textOverflow: 'ellipsis',overflow: 'hidden', width:'90%', height: '50px',whiteSpace:'nowrap',padding: "8px",textAlign:'left'}}>{item.description}</p>
           </div>
-          <div style={{ height: '50px', display: 'flex', justifyContent: 'flex-end', borderTop: '2px solid black', padding: '10px' }}>
+          <div style={{ height: '50px', display: 'flex', justifyContent: 'space-between', borderTop: '2px solid black', padding: '10px' }}>
+          <div className="edit_icon tech_box">
+              <div className = "tech_stack" style={{backgroundColor:tech[tech_one]}}>{tech_one}</div>
+              <div className = "tech_stack" style={{backgroundColor:tech[tech_two]}}>{tech_two}</div>
+              
+            </div>
+            <div style={{display:'flex'}}>
             <div className="edit_icon" onClick={() => handleClick(projectName, item.description, id)} style={{marginRight: "30px"}}>
               <i className="fas fa-edit fa-lg" style={{ color: "#0d6efd"}}></i>
             </div>
@@ -97,6 +106,7 @@ const Project = () => {
               ) : (
                 <i className="fas fa-dot-circle fa-lg" style={{ color: "red" }}></i>
               )}
+            </div>
             </div>
           </div>
         </div>
@@ -122,7 +132,7 @@ const Project = () => {
           <ReactDialogBox
             closeBox={closeBox}
             modalWidth='80%'
-            headerBackgroundColor='#212529'
+            headerBackgroundColor=' #0d9460'
             headerTextColor='white'
             headerHeight='65'
             closeButtonColor='white'

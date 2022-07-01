@@ -1,31 +1,54 @@
-.singleProject{
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-  align-items: center;
-  font-size: 1rem;
+.section_card {
+  padding: 30px 30px;
+}
+.container_card {
+  max-width: 100%;
+  margin: auto;
+}
+.grid-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 350px));
+  grid-gap: 15px 15px;
+  justify-content: center;
+  align-items: baseline;
+}
+
+.grid-row .grid-item span {
   padding: 10px;
-  margin:20px;
-
+  line-height: 1;
 }
-.single_card_item{
-  width: 40%;
+.grid-row .grid-item h3 {
+  font-size: 20px;
+  margin-bottom: 0;
 }
-.card_icons{
+.grid-row .grid-item:hover {
+  filter: contrast(0.7);
+}
+.grid-row .grid-item {
+  transition: filter 0.5s ease;
   display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
+  cursor: pointer;
+  background: #f7f7f7;
+  box-shadow:  1px 0px 5px darkgray;
+  color: #607d8b;
+  text-align: center;
+  font-family: sans-serif;
+  flex-direction: column-reverse;
+  align-items: stretch;
 }
-.singleProject:hover{
-  box-shadow: 0px 20px 40px rgba(0,0,0,0.4);
-  border-radius: 10px;
-  transform: translateY(-0.25em);
-  transition: all 500ms ease;
+.tech_box {
+  display: flex;
+  margin-right: 20px;
+  justify-content:space-evenly;
+  /* margin-left:0px; */
 }
-
-@media screen and (max-width:640px) {
-  .singleProject{
-    flex-direction: column;
-  }
+.tech_stack {
+  display:flex;
+  align-items:center;
+  color:#fff;
+  font-weight:bold;
+  padding:5px;
+  border-radius:5px;
+  margin-right:5px;
   
 }
