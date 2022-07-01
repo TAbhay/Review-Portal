@@ -43,24 +43,23 @@ const projectCtrl = {
     },
     editproject: async (req,res) =>{
         try{
-           
-        //    const result  = await Projects.findOneAndUpdate({project_by:req.user.id,_id:projectId},{
-
-        //    });
+            const { name , description } = req.body;
+           const result  = await Projects.findOneAndUpdate({project_by:req.user.id,_id:req.params.projectId},{name:name,description:description},{new:true});
+           res.status(200).json({result:result});
         }
         catch(err){
           res.status(500).send({message:err.message});
         }
     },
 
-//     deleteProject : async (req,res) =>{
-//          try{
+    deleteProject : async (req,res) =>{
+         try{
 
-//          }
-//          catch(err){
-//           res.status(500).send({message:err.message});
-//          }
-//     },
+         }
+         catch(err){
+          res.status(500).send({message:err.message});
+         }
+    },
         
 
 }

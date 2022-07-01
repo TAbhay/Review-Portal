@@ -45,14 +45,18 @@
     padding: 12px 30px;
     margin-top: 30px;
     cursor: pointer;
+    font-size: 1.2rem;
     color: #FFF;
     background-color: #3429fa;
+    
 }
-
+.landing-page .info button:hover {
+    transition: background 300ms ease-in-out;
+  }
 .landing-page .image {
-    width: 50%;
+    width: 60%;
     float: right;
-    margin-top: 35px;
+    margin-top: 45px;
     display: flex;
     align-items: center;
 }
@@ -110,3 +114,5 @@
     }
     
   }
+
+

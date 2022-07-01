@@ -4,6 +4,7 @@
    display:flex;
    justify-content: center;
    align-items:center;
+   margin-top:35px;
   
 
 }
@@ -11,6 +12,6 @@
 
   .footer{
     flex-direction: column-reverse;
-    margin-top:25px;
+    margin-top:35px;
   }
 }

@@ -1,10 +1,10 @@
   .navbar {
-    background-color: #282c34;
+    /* background-color: #282c34; */
     height: 80px;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     position: sticky;
     top: 0;
     z-index: 20;
@@ -21,13 +21,14 @@
   
   
   .nav-logo {
-    color: #f5b921;
+    color: #a92ae0;
     align-items: center;
-    margin-left: 20px;
+    margin-left: 80px;
     margin-top: -20px;
     cursor: pointer;
     text-decoration: none;
-    font-size: 2rem;
+    font-size: 2.2rem;
+    font-weight: bolder;
     flex-grow: 1;
   }
   
@@ -39,9 +40,10 @@
   }
   
   .nav-links {
-    color: #fff;
+    color: #a92ae0;
     text-decoration: none;
     padding: 0.5rem 1rem;
+    font-weight: bold;
     height: 100%;
     border-bottom: 3px solid transparent;
   }
@@ -85,7 +87,7 @@
       display: flex;
       flex-direction: column;
       width: 100%;
-      border-top: 1pxsolid #fff;
+      border-top: 1px solid #fff;
       position: absolute;
       top: 80px;
       left: -110%;
@@ -94,14 +96,16 @@
     }
   
     .nav-menu.active {
-      background: #282c34;
+      background: #fff;
       left: 0px;
-      opacity: 1;
+      opacity: 0.92;
       transition: all 0.5s ease;
       z-index: 1;
+      box-shadow: -4px 43px 103px -56px rgba(0,0,0,0.75);
+
     }
     .nav-item .active {
-      color: #ffdd40;
+      color: #a92ae0;
       border: none;
     }
     .nav-links {
@@ -118,7 +122,18 @@
       transform: translate(-100%, 60%);
       font-size: 1.8rem;
       cursor: pointer;
-      color: #ffdd40;
+      color: #a92ae0;
+    }
+    .nav-logo {
+      color: #a92ae0;
+      align-items: center;
+      margin-left: 40px;
+      margin-top: -2px;
+      cursor: pointer;
+      text-decoration: none;
+      font-size: 2rem;
+      font-weight: bolder;
+      flex-grow: 1;
     }
   }
 

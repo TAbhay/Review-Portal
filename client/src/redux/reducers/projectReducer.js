@@ -23,6 +23,12 @@ export const projectReducer = (state =initialState, action) => {
             ...state,
             projects:[action.payload.projects.result, ...state.projects]
         }
+    case ACTIONS.UPDATE_PROJECT:
+        console.log(action.payload)
+        return {
+            ...state,
+            projects:[action.payload.projects.result, ...state.projects]
+        }
     default:
       return state
 

@@ -8,7 +8,7 @@ const Home = () => {
         <div className="landing-page">
             <div className="container">
                 <div className="info">
-                    <h1>Let's make project review easy</h1>
+                    <h1>Let's Make Project Review Easy</h1>
                     <h3>Portal for Student & Professors</h3>
                     <p>Get started with your project submission and reviews in few clicks.</p>
                     <button>Welcome</button>

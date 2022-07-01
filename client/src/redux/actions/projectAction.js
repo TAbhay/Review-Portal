@@ -39,6 +39,17 @@ export const dispatchAddProject = (res) => {
     }
 }
 
+export const dispatchUpdateProject = (res) => {
+    return {
+        type: ACTIONS.UPDATE_PROJECT,
+        payload: {
+            projects:{
+                result: res.data.result.projects.result
+            }
+        }
+    }
+}
+
 // export const dispatchReview = (res) => {
 //     return {
 //         type: ACTIONS.GET_REVIEW,

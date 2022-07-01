@@ -12,7 +12,7 @@ export default combineReducers({
     auth,
     token,
     users,
-    reviewReducer,
-    currentReviewReducer,
+    reviews : reviewReducer,
+    currentReview :currentReviewReducer,
     projectReducer,
 })

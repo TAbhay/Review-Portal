@@ -63,27 +63,12 @@ const ReviewComponent = (props) => {
         }
       );
       dispatch(dispatchReview(res.data));
-
       setData({ ...data, err: "", success: "Updated successfully" });
-    //   var answer = result.data.question[0];
-    //   setQuestion({
-    //     Q1: answer.Q1,
-    //     Q2: answer.Q2,
-    //     Q3: answer.Q3,
-    //     Q4: answer.Q4,
-    //     Q5: answer.Q5,
-    //     Q6: answer.Q6,
-    //     Q7: answer.Q7,
-    //     Q8: answer.Q8,
-    //     comment: result.data.comment,
-    //     status: result.data.status,
-    //   });
     } catch (err) {
       err.response.data.msg &&
         setData({ ...data, err: "err.response.data.msg", success: "" });
     }
   };
-  // useEffect(() => {}, [data]);s
 
   return (
     <div>

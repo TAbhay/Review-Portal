@@ -18,7 +18,6 @@ const Projects = () => {
   const [data, setData] = useState({ err: "", success: ""});
   const { err, success } = data;
   const token = useSelector(state => state.token)
-  const stateValue  = useSelector(state => state)
   const dispatch = useDispatch();
 
   const fetchProjects = async () => {
@@ -49,11 +48,9 @@ const Projects = () => {
         }
       );
       dispatch(dispatchAddProject(res))
-      console.log(stateValue)
       setData({ err: "", success: "Updated successfully" });
       closeBox()
     } catch (err) {
-      console.log(err)
       err &&
         setData({err: "Error occurred", success: "" });
     }
@@ -122,7 +119,7 @@ const Projects = () => {
             {success && showSuccessMsg(success)}
           </div>
                 <button className="add_button" onClick={handleSubmit}>
-                   Submit
+                   Create
                 </button>
               </div>
             </ReactDialogBox>
@@ -130,10 +127,7 @@ const Projects = () => {
         }
         </div>
 
-        <Project />
-
-
-     
+        <Project />   
       </div>
 
       );
