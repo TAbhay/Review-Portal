@@ -17,12 +17,16 @@ export const reviewReducer = (state = {}, action) => {
 
 export const currentReviewReducer = (state = {}, action) => {
   switch (action.type) {
-
+    
     case ACTIONS.GET_REVIEW:
       return {
         ...state,
         ...action.payload
       }
+      case ACTIONS.UPDATE_REVIEW:
+        return {
+          ...action.payload
+        }
     default:
       return state
 

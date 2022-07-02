@@ -99,6 +99,17 @@ export default function Header() {
                                     </li>
                                     <li className="nav-item">
                                         <Link
+                                            exacts
+                                            to="/team"
+                                            activeClassName="active"
+                                            className="nav-links"
+                                            onClick={click ? handleClick : null}
+                                        >
+                                            Team
+                                        </Link>
+                                    </li>
+                                    <li className="nav-item">
+                                        <Link
                                             exact
                                             to="/contact"
                                             activeClassName="active"
@@ -108,6 +119,7 @@ export default function Header() {
                                             Logout
                                         </Link>
                                     </li>
+
                                 </>
                                 :
                                 <>
@@ -142,6 +154,17 @@ export default function Header() {
                                             onClick={click ? handleClick : null}
                                         >
                                             Register
+                                        </Link>
+                                    </li>
+                                    <li className="nav-item">
+                                        <Link
+                                            exacts
+                                            to="/team"
+                                            activeClassName="active"
+                                            className="nav-links"
+                                            onClick={click ? handleClick : null}
+                                        >
+                                            Team
                                         </Link>
                                     </li>
                                 </>

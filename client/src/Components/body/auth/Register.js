@@ -2,9 +2,7 @@ import React, { useState } from 'react'
 import { Link } from "react-router-dom"
 import "./auth.css"
 import axios from "axios"
-import { showErrMsg, showSuccessMsg } from "../../utils/notifications/Notification"
-//import {dispatchLogin} from "../../../redux/actions/authAction"
-//import {useDispatch} from "react-redux"
+import { toast } from 'react-toastify';
 import { isEmpty, isEmail, isLength, isMatch } from "../../utils/validation/Validation"
 import bg5 from "../../../Images/bg5.jpg"
 const initialState = {
@@ -23,35 +21,41 @@ const initialState = {
 export default function Register() {
 
     const [user, setUser] = useState(initialState)
-    // const dispatch = useDispatch()
-    // const history = useHistory()
     const { name, email, password, cf_password, err, success } = user
-
     const handleChangeInput = e => {
         const { name, value } = e.target
         setUser({ ...user, [name]: value, err: "", success: "" })
     }
 
-
     const handleSubmit = async e => {
         e.preventDefault()
 
-        if (isEmpty(name) || isEmpty(password))
+        if (isEmpty(name) || isEmpty(password)){
+            toast.error('All fields should be filled !',{theme: "colored"});
+            setUser({ ...user, err: "Please fill in all fields", success: "" })
+            return
+        }
 
-            return setUser({ ...user, err: "Please fill in all fields", success: "" })
+        if (!isEmail(email)){
+            toast.error('Invalid emails',{theme: "colored"});
+            setUser({ ...user, err: "Please fill in all fields", success: "" })
+            return
+        }
+           
 
+        if (isLength(password)){
+            toast.error('Password should be 6 characters length',{theme: "colored"});
+            setUser({ ...user, err: "Please fill in all fields", success: "" })
+            return
+        }
+           
 
-        if (!isEmail(email))
-
-            return setUser({ ...user, err: "Invalid emails", success: "" })
-
-        if (isLength(password))
-
-            return setUser({ ...user, err: "Password should be 6 characters length", success: "" })
-
-        if (!isMatch(password, cf_password))
-
-            return setUser({ ...user, err: "Password doest match", success: "" })
+        if (!isMatch(password, cf_password)){
+            toast.error('Password doest match',{theme: "colored"});
+            setUser({ ...user, err: "Please fill in all fields", success: "" })
+            return
+        }
+          
 
 
         try {
@@ -76,10 +80,6 @@ export default function Register() {
             </div>
             <div className="login_page">
                 <h2>Register</h2>
-
-                {err && showErrMsg(err)}
-                {success && showSuccessMsg(success)}
-
                 <form onSubmit={handleSubmit}>
 
                     <div>

@@ -1,0 +1,48 @@
+.profile_page{
+    width:100%;
+    display:flex;
+    flex-wrap:wrap;
+}
+
+ .profile_page .col-left{
+
+   max-width: 400px;
+   min-width: 300px;
+   padding: 0 10px;
+   margin: auto;
+}
+.profile_page .col-right{
+
+  max-width: 400px;
+  min-width: 300px;
+  padding: 0 10px;
+  margin: auto;
+}
+
+.profile_image .col-left img{
+
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit:cover;
+
+}
+
+
+
+.profile_team {
+  width: 100%;
+  float: right;
+  display: flex;
+  align-items: center;
+}
+
+.profile_team img {
+  max-width: 100%;
+}
+
+.profile_team {
+    display: flex;
+    flex-direction: column;
+}
+

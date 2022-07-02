@@ -2,30 +2,21 @@ import React , {useEffect, useState} from 'react'
 import axios from "axios"
 import {useSelector} from "react-redux"
 import {isLength, isMatch} from "../../utils/validation/Validation"
-import {showSuccessMsg,showErrMsg} from "../../utils/notifications/Notification"
 import bg3 from "../../../Images/bg3.jpg"
 import "./profile.css"
-
-
-
+import { toast } from 'react-toastify';
+import Loader from '../../utils/Loader'
 
 const initialState ={
-
     name:"",
     password:"",
     cf_password:"",
-    err:'',
-    success:"",
 }
 
 const Profile = () => {
 
     const auth =useSelector(state =>state.auth)
     const token= useSelector(state =>state.token)
-    const users = useSelector(state => state.users)
- 
-    console.log(users,token,auth,"users token auth")
-
     const {user, isAdmin , isReviewer , isStudent} = auth
     const [data, setData] = useState(initialState)
     const [avatar, setAvatar] = useState(false)
@@ -44,13 +35,11 @@ const Profile = () => {
         }
 
     },[user])
-    const {name,email,password,cf_password,err,success} = data
+    const {name,email,password,cf_password} = data
   
 
     const changeAvatar = async(e) => {
-
         e.preventDefault()
-
         try{
 
             const file = e.target.files[0]
@@ -69,16 +58,13 @@ const Profile = () => {
             const res = await axios.post('/api/upload_avatar',formData,{
                 headers: {"content-type":"multipart/form-data", Authorization:token}
             })
-
             setLoading(false)
             setAvatar(res.data.url)
+            toast.success('Sucess !', {theme: "colored"});
 
         }catch(err){
-
-            setData({...data, err:err.response.data.msg, success:""})
-
-
-
+            toast.error(`${err.response.data.msg}`, {theme: "colored"});
+            setData({...data})
         }
     }
 
@@ -87,22 +73,24 @@ const Profile = () => {
     const handleChange = e =>{
 
         const {name, value} = e.target
-        setData({...data, [name]:value, err:'', success:''})
-
+        setData({...data, [name]:value})
 
     }
 
 
-
     const updatePassword = () => {
 
-        if(isLength(password))
-            return setData({...data,err:'Password must be at least 6 characters length', success:''})
-        
+        if(isLength(password)){
+            toast.error('Password must be at least 6 characters length', {theme: "colored"});
+            setData({...data})
+            return
+        }
 
-        if(!isMatch(password,cf_password))
-            return setData({...data,err:"Password does not match", success:""})
-
+        if(!isMatch(password,cf_password)){
+            toast.error('Password does not match', {theme: "colored"});
+            setData({...data})
+            return
+        }
 
         try{
 
@@ -111,13 +99,13 @@ const Profile = () => {
            },{
                headers: {Authorization : token}
            })
-
-           setData({...data, err:"", success:'Updated successfully'})
+           toast.success('Updated Succesfully !', {theme: "colored"});
+           setData({...data})
        
        
         } catch(err){
-
-            setData({...data, err: err.response.data.msg, success:""})
+            toast.error('Error !',{theme: "colored"});
+            setData({...data})
         }
 
 
@@ -137,12 +125,14 @@ const Profile = () => {
                headers: {Authorization : token}
            })
 
-           setData({...data, err:"", success:'Updated successfully'})
+           toast.success('Updated Succesfully !', {theme: "colored"});
+           setData({...data})
        
        
         } catch(err){
 
-            setData({...data, err: err.response.data.msg, success:""})
+            toast.error('Error !',{theme: "colored"});
+            setData({...data})
         }
 
 
@@ -158,24 +148,16 @@ const Profile = () => {
 
     }
 
-
-
-
     return (
         <>
-        <div>
-            {err && showErrMsg(err)}
-            {success && showSuccessMsg(success)}
-
-        </div>
-
         <div className="profile_page">
             <div className="col-left">
 
-                  <h2>{ user.name } </h2>
                   { loading ? 
-                  <h3>Loading...</h3> :
-                  <>          <div className="avatar">
+                  <Loader/> :
+                  <>    
+                  <h2>{ user.name } </h2>      
+                  <div className="avatar">
 
                   <img src= {avatar ? avatar : user.avatar} alt="" />
 

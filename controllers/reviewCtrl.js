@@ -9,7 +9,7 @@ const reviewCtrl = {
     getReviews: async (req,res) =>{
        try{
         //    console.log(req.user.id)
-           const allReviews = await Reviews.find({review_by:req.user.id}).populate('project',{'name':1}).populate('project_by').select(['-password','-email','-avatar']).select(['-comment','-question','-review_by']);
+           const allReviews = await Reviews.find({review_by:req.user.id}).populate('project',{'name':1,'description':1,'tag_one':1,'tag_two':1}).populate('project_by').select(['-password','-email','-avatar']).select(['-comment','-question','-review_by']);
            for(var i = 0 ; i < allReviews.length ; i++){
                     allReviews[i].project_by.password = null;
                     allReviews[i].project_by.email = null;

@@ -35,12 +35,13 @@
   font-family: sans-serif;
   flex-direction: column-reverse;
   align-items: stretch;
+  /* min-height: 400px; */
 }
 .tech_box {
   display: flex;
   margin-right: 20px;
   justify-content:space-evenly;
-  margin-left:0px;
+  /* margin-left:0px; */
 }
 .tech_stack {
   display:flex;
@@ -52,3 +53,13 @@
   margin-right:5px;
   
 }
+
+@media screen and (max-width:440px) {
+  .tech_box {
+    display: flex;
+    margin-right: 5px;
+    justify-content:space-evenly;
+    /* margin-left:0px; */
+  }
+  }
+  

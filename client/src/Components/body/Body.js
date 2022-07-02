@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React from "react"
 import { Switch, Route } from "react-router-dom"
 import Login from './auth/Login'
 import Register from './auth/Register'
@@ -9,10 +9,11 @@ import ForgotPassword from "../body/auth/ForgotPassword"
 import ResetPassword from "../body/auth/ResetPassword"
 import Profile from "../body/profile/Profile"
 import Reviews from "./reviewer/Reviews/Reviews"
-// import { fetchAllReviews } from "../../redux/actions/reviewAction"
 import ReviewComponent from "./reviewer/reviewComponent/reviewComponent"
 import Projects from "./student/Projects/Projects"
 import Home from "../body/Home/Home"
+import Team from "../body/Team/Team"
+
 export default function Body() {
 
     const auth = useSelector(state => state.auth)
@@ -22,6 +23,7 @@ export default function Body() {
         <div style={{minHeight:'84vh'}}>
           <Switch>
                  <Route path="/" component={Home} exact />
+                 <Route path="/team" component={Team} exact />
                 {
                     isStudent &&
                     <>
@@ -48,17 +50,16 @@ export default function Body() {
                     <Route path="/user/reset/:token" component={ResetPassword} exact />
                     <Route path="/login" component={NotFound} exact />
                     <Route path="/register" component={NotFound} exact />
+                    
                     </>
                     :
                     <>
                     <Route path="/login" component={Login} exact />
                     <Route path="/register" component={Register} exact />
                     <Route path="/user/activate/:activation_token" component={ActivationMail} exact />
+                   
                     </>
                 }
-                
-                
-
 
                 {/* <Route path="/admin" component={Admin} exact /> */}
                 {/* //  <Route path= "/edit_user/:id" comonent={isAdmin ? EditUser : NotFound} exact /> */}

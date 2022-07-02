@@ -1,22 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from "react-redux"
-import { Link } from 'react-router-dom';
 import Project from '../Project/Project';
 import './Projects.css';
 import { fetchAllProjects, dispatchAllProjects } from '../../../../redux/actions/projectAction';
 import { dispatchAddProject } from '../../../../redux/actions/projectAction';
 import { ReactDialogBox } from 'react-js-dialog-box'
 import 'react-js-dialog-box/dist/index.css'
-import { useParams } from "react-router-dom";
 import axios from "axios";
-import {showErrMsg,showSuccessMsg} from "../../../utils/notifications/Notification";
 import { isEmpty } from "../../../utils/validation/Validation";
+import { toast } from 'react-toastify';
 
 const Projects = () => {
   const [project, setProject] = useState({name:"",description:""});
   const [dialog, setDialog] = useState(false);
-  const [data, setData] = useState({ err: "", success: ""});
-  const { err, success } = data;
   const token = useSelector(state => state.token)
   const dispatch = useDispatch();
 
@@ -29,7 +25,6 @@ const Projects = () => {
     fetchProjects();
   }, []);
   const closeBox = () => {
-    setData({...data, err: "", success: ""});
     setDialog(false)
   }
   const handleInputChange = (e) => {
@@ -38,9 +33,9 @@ const Projects = () => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setData({...data, err: "", success: ""});
     if (isEmpty(project.name && project.description ) ) {
-      return setData({ ...data, err: "Please Fill All the fields 1", success: "", });
+      toast.error('All fields should be filled !',{theme: "colored"});
+      return;
     }
     try {
       var res = await axios.post( `/api/project/add`, {name: project.name, description: project.description},
@@ -49,11 +44,10 @@ const Projects = () => {
         }
       );
       dispatch(dispatchAddProject(res))
-      setData({ err: "", success: "Updated successfully" });
+      toast.success('Project added succesfully !', {theme: "colored"});
       closeBox()
     } catch (err) {
-      err &&
-        setData({err: "Error occurred", success: "" });
+      toast.error('Error !', {theme: "colored"});
     }
   }
  
@@ -94,7 +88,7 @@ const Projects = () => {
                   name="name"
                   cols={20}
                   rows={1}
-                  defaultValue={"des"}
+                  value={project.name}
                   onChange={handleInputChange}
                   required
                 />
@@ -110,15 +104,11 @@ const Projects = () => {
                   name="description"
                   cols={40}
                   rows={3}
-                  defaultValue={"des"}
+                  value={project.description}
                   onChange={handleInputChange}
                   required
                 />
                 </div>
-                <div>
-            {err && showErrMsg(err)}
-            {success && showSuccessMsg(success)}
-          </div>
                 <button className="add_button" onClick={handleSubmit}>
                    Create
                 </button>

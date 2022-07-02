@@ -10,9 +10,9 @@ const Review = () => {
     const id = item._id;
     const status = item.status;
     const author = item.project_by.name
-    var tech = [["Node","lightgreen"],["Mongodb","#F7CA18"],["Python","#26C281"],["React","#19B5FE"],["Angular","#F22613"],["SQL","orange"],["C++","#003171"],["Express","#BF55EC"]];
-    var randomTech_1 = tech[Math.floor(Math.random()*tech.length)];
-    var randomTech_2 = tech[Math.floor(Math.random()*tech.length)];
+    const tech_one = item.project.tag_one
+    const tech_two = item.project.tag_two
+    var tech = {Node:"lightgreen",Mongodb:"#F7CA18",Python:"#26C281",React:"#19B5FE",Angular:"#F22613",SQL:"orange",C:"#003171",Express:"#BF55EC"};
     return (
       <div className="grid-item">
         <div className="grid_card">
@@ -27,16 +27,16 @@ const Review = () => {
             <p style ={{ marginTop:'-15px', textOverflow: 'ellipsis',overflow: 'hidden', width:'90%', height: '50px',whiteSpace:'nowrap',padding: "8px",textAlign:'left'}}>Review this Project !!</p>
           </div>
           <div style={{ height: '50px', display: 'flex', justifyContent: 'space-between', borderTop: '2px solid black', padding: '10px' }}>
-          <div className="edit_icon tech_box">
-              <div className = "tech_stack" style={{backgroundColor:randomTech_1[1]}}>{randomTech_1[0]}</div>
-              <div className = "tech_stack" style={{backgroundColor:randomTech_2[1]}}>{randomTech_2[0]}</div>
+          <div className="edit_icon tech_box card_icon">
+               <div className = "tech_stack" style={{backgroundColor:tech[tech_one]}}>{tech_one}</div>
+              <div className = "tech_stack" style={{backgroundColor:tech[tech_two]}}>{tech_two}</div>
               
             </div>
             <div style={{display:'flex'}}>
-             <div className="edit_icon"  style={{marginRight: "30px"}}>
+             <div className="edit_icon"  style={{marginRight: "15px"}}>
               <Link to={`/review/${id}`}> <i className="fas fa-edit fa-lg" style={{ color: "#0d6efd"}}></i> </Link>
             </div>
-            <div className="card-status" style={{marginRight: "30px"}}>
+            <div className="card-status" style={{marginRight: "10px"}}>
               {status ? (
                 <i className="fas fa-dot-circle fa-lg" style={{ color: "green"}}></i>
               ) : (

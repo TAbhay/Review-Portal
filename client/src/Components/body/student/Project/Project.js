@@ -1,26 +1,23 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState} from 'react';
 import { useSelector, useDispatch } from "react-redux"
-import { dispatchUpdateProject } from '../../../../redux/actions/projectAction';
+import { dispatchUpdateProject , dispatchDeleteProject } from '../../../../redux/actions/projectAction';
 import { ReactDialogBox } from 'react-js-dialog-box'
 import 'react-js-dialog-box/dist/index.css'
 import axios from "axios";
-import { showErrMsg, showSuccessMsg } from "../../../utils/notifications/Notification";
 import { isEmpty } from "../../../utils/validation/Validation";
+import { toast } from 'react-toastify';
 import "./project.css";
 
 const Project = () => {
   const projects = useSelector((state) => state.projectReducer.projects);
   const [project, setProject] = useState({ name: "", description: "", id: "" });
   const [dialog, setDialog] = useState(false);
-  const [data, setData] = useState({ err: "", success: "" });
-  const { err, success } = data;
   const token = useSelector(state => state.token)
   const dispatch = useDispatch();
 
   const handleClick = (pname, des, id) => {
     setProject({ name: pname, description: des, id: id });
     setDialog(!dialog)
-    console.log(pname, id)
   }
   const closeBox = () => {
     setProject({ name: "", description: "", id: "" });
@@ -32,9 +29,9 @@ const Project = () => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setData({ ...data, err: "", success: "" });
     if (isEmpty(project.name && project.description && project.id)) {
-      return setData({ ...data, err: "Please Fill All the fields 1", success: "", });
+      toast.error('All fields should be filled !',{theme: "colored"});
+      return;
     }
     try {
       var res = await axios.put(`/api/project/${project.id}`, { name: project.name, description: project.description },
@@ -42,13 +39,25 @@ const Project = () => {
           headers: { Authorization: token },
         }
       );
-      console.log(res.data)
       dispatch(dispatchUpdateProject(res))
-      setData({ err: "", success: "Updated successfully" });
+      toast.success('Project edited succesfully !', {theme: "colored"});
       closeBox()
     } catch (err) {
-      err &&
-        setData({ err: "Error occurred", success: "" });
+      toast.error('Error !',{theme: "colored"});
+    }
+  }
+  const handleDelete = async () => {
+    try {
+      var res = await axios.delete(`/api/project/${project.id}`,
+        {
+          headers: { Authorization: token },
+        }
+      );
+      dispatch(dispatchDeleteProject(res))
+      toast.success('Deleted successfully !', {theme: "colored"});
+      closeBox()
+    } catch (err) {
+      toast.error('Error !',{theme: "colored"});
     }
   }
  
@@ -60,24 +69,6 @@ const Project = () => {
     const tech_two = item.tag_two
     var tech = {Node:"lightgreen",Mongodb:"#F7CA18",Python:"#26C281",React:"#19B5FE",Angular:"#F22613",SQL:"orange",C:"#003171",Express:"#BF55EC"};
     return (
-      // <div className="singleProject">
-      //   <div className="single_card_istem">
-      //      <h4>{projectName}</h4>
-      //   </div>
-      //   <div className="single_card_item card_icons">
-      //     <div className="edit_icon" onClick={() => handleClick(projectName,item.description,id)}>
-      //         <i className="fas fa-edit"></i>
-      //     </div>
-      //     <div className="card-status">
-      //       {status ? (
-      //         <i className="fas fa-dot-circle" style={{ color: "green" }}></i>
-      //       ) : (
-      //       <i className="fas fa-dot-circle" style={{ color: "green" }}></i>
-      //       )}
-      //     </div> 
-      //   </div>
-      // </div>
-
       <div className="grid-item">
         <div className="grid_card">
           <div className="card_header"  style={{ display:'flex',justifyContent:'space-between',padding: "8px",textAlign:'left'}}>
@@ -91,22 +82,26 @@ const Project = () => {
             <p style ={{ marginTop:'-15px', textOverflow: 'ellipsis',overflow: 'hidden', width:'90%', height: '50px',whiteSpace:'nowrap',padding: "8px",textAlign:'left'}}>{item.description}</p>
           </div>
           <div style={{ height: '50px', display: 'flex', justifyContent: 'space-between', borderTop: '2px solid black', padding: '10px' }}>
-          <div className="edit_icon tech_box">
+          <div className="edit_icon tech_box card_icon">
               <div className = "tech_stack" style={{backgroundColor:tech[tech_one]}}>{tech_one}</div>
               <div className = "tech_stack" style={{backgroundColor:tech[tech_two]}}>{tech_two}</div>
               
             </div>
             <div style={{display:'flex'}}>
-            <div className="edit_icon" onClick={() => handleClick(projectName, item.description, id)} style={{marginRight: "30px"}}>
+            <div className="edit_icon" onClick={() => handleClick(projectName, item.description, id)} style={{marginRight: "20px"}}>
               <i className="fas fa-edit fa-lg" style={{ color: "#0d6efd"}}></i>
             </div>
-            <div className="card-status" style={{marginRight: "30px"}}>
+            <div className="card-status" style={{marginRight: "20px"}}>
               {status ? (
                 <i className="fas fa-dot-circle fa-lg" style={{ color: "green"}}></i>
               ) : (
                 <i className="fas fa-dot-circle fa-lg" style={{ color: "red" }}></i>
               )}
             </div>
+            <div className="edit_icon" onClick={() => handleDelete(id)} >
+                  <i class="fa fa-trash fa-lg" aria-hidden="true" style={{ color: "#0d6efd"}}></i>
+            </div>
+            
             </div>
           </div>
         </div>
@@ -173,10 +168,6 @@ const Project = () => {
                   onChange={handleInputChange}
                   required
                 />
-              </div>
-              <div>
-                {err && showErrMsg(err)}
-                {success && showSuccessMsg(success)}
               </div>
               <button className="add_button" onClick={handleSubmit}>
                 Update

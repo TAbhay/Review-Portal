@@ -1,8 +1,7 @@
 import axios from 'axios'
 import React , {useState} from 'react'
-import { showErrMsg, showSuccessMsg } from '../../utils/notifications/Notification'
 import {isEmail} from '../../utils/validation/Validation'
-
+import { toast } from 'react-toastify';
 
 const initialState = {
     email: "",
@@ -20,24 +19,27 @@ function ForgotPassword() {
 
         const {name , value} = e.target
 
-        setData({...data, [name]:value , err:"" , success:''})
+        setData({...data, [name]:value})
     }
 
     const forgotPassword = async () => {
 
-        if(!isEmail(email))
-           
-           return setData({...data, err:"Invalid email", success:""})
-
+        if(!isEmail(email)){
+           toast.error('Invalid email',{theme: "colored"});
+           setData({...data})
+           return 
+        }
         try{
 
            const res = await axios.post('/user/forgot' , {email})
-
-           return setData({ ...data, err:'', success: res.data.msg})
+           toast.success(`${res.data.msg}`, {theme: "colored"});
+           setData({ ...data})
+           return
              
         }  catch(err){
 
-            err.response.data.msg && setData({...data, err:err.response.data.msg, success:""})
+            err.response.data.msg && setData({...data})
+            err.response.data.msg && toast.success(`${ err.response.data.msg}`, {theme: "colored"});
         } 
     }
 
@@ -46,10 +48,6 @@ function ForgotPassword() {
            <h2>Forgot Your Password ?</h2>
 
            <div className="row">
-               
-               {err && showErrMsg(err)}
-               {success && showSuccessMsg(success)}
-
             <label htmlFor="email">Enter email</label>
             <input type="email" name="email" id="email" value={email}
             onChange={handleChangeInput} />

@@ -1,45 +1,43 @@
 import React,{useState} from 'react'
 import axios from "axios"
 import {useParams} from "react-router-dom"
-import {showErrMsg,showSuccessMsg} from "../../utils/notifications/Notification"
 import {isLength, isMatch} from "../../utils/validation/Validation"
-
+import { toast } from 'react-toastify';
 
 const initialState = {
 
     password:"",
     cf_password:"",
-    err:"",
-    success:""
 }
 
 export default function ResetPassword() {
+
     const [data ,setData]= useState(initialState)
     const {token} = useParams()
-
-    const {password,cf_password,err,success} = data 
-
-    console.log({"data":data})
-
-
-
+    const {password,cf_password} = data 
 
     const handleChangeInput = e =>{
 
         const {name , value} = e.target
 
-        setData({...data, [name]:value , err:"" , success:''})
+        setData({...data, [name]:value})
     }
 
     const handleResetPassword = async () =>{
 
-        if(isLength(password)) 
-        return  setData({...data, err:"Password should be at least 6 characters length", success:""})
+        if(isLength(password)){
+            toast.error('Password should be at least 6 characters',{theme: "colored"});
+            setData({...data})
+            return  
+        } 
         
         
-        if(!isMatch(password, cf_password)) 
-        return  setData({...data, err:"Passwords do not match", success:""})
         
+        if(!isMatch(password, cf_password)) {
+            toast.error('Passwords do not match',{theme: "colored"});
+            setData({...data})
+            return  
+        }
 
         try{
            
@@ -48,13 +46,15 @@ export default function ResetPassword() {
            })
 
 
-           return  setData({...data, err:"", success:res.data.msg})
+           toast.success(`${res.data.msg}`, {theme: "colored"});
+           setData({...data})
+           return 
        
        
         }catch(err){
 
-            err.response.data.msg && setData({...data, err: err.response.data.msg, success:""})
-        
+            err.response.data.msg && setData({...data})
+            err.response.data.msg && toast.success(`${ err.response.data.msg}`, {theme: "colored"});
         }
     }
 
@@ -64,21 +64,15 @@ export default function ResetPassword() {
            <h2>Reset Your Password ?</h2>
 
            <div className="row">
-               
-               {err && showErrMsg(err)}
-               {success && showSuccessMsg(success)}
-
+            
             <label htmlFor="password">Enter password</label>
             <input type="password" name="password" id="password" value={password}
             onChange={handleChangeInput} />
 
-            <label htmlFor="cf_password">Confirm password</label>
+             <label htmlFor="cf_password">Confirm password</label>
             <input type="password" name="cf_password" id="cf_password" value={cf_password}
             onChange={handleChangeInput} />
-
             <button onClick={handleResetPassword}>Reset password</button>
-
-
            </div>
         </div>
         </div>

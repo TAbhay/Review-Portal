@@ -1,52 +1,99 @@
 import ACTIONS from "./index"
 import axios from "axios"
 
-export const fetchAllProjects =  async (token) => {
-    const res = await axios.get('/api/project', {
-        headers:{Authorization:token}
-    })
-    return res
+export const fetchAllProjects = async (token) => {
+    try {
+        const res = await axios.get('/api/project', {
+            headers: { Authorization: token }
+        })
+        return res
+    }
+    catch (err) {
+
+    }
 }
 
-export const fetchProject =  async (token,id) => {
-    const res = await axios.get(`/api/project/${id}`, {
-        headers:{Authorization:token}
-    })
-    return res
+export const fetchProject = async (token, id) => {
+    try {
+        const res = await axios.get(`/api/project/${id}`, {
+            headers: { Authorization: token }
+        })
+        return res
+    }
+    catch (err) {
+
+    }
 }
 
-export const addProject =  async (token) => {
-    const res = await axios.post(`/api/project/`, {
-        headers:{Authorization:token}
-    })
-    return res
+export const addProject = async (token) => {
+    try {
+        const res = await axios.post(`/api/project/`, {
+            headers: { Authorization: token }
+        })
+        return res
+    }
+    catch (err) {
+
+    }
 }
 
 export const dispatchAllProjects = (res) => {
-    return {
-        type: ACTIONS.GET_ALL_PROJECTS,
-        payload: res.data.result
+    try {
+        return {
+            type: ACTIONS.GET_ALL_PROJECTS,
+            payload: res.data.result
+        }
+    }
+    catch (err) {
+
     }
 }
+
 export const dispatchAddProject = (res) => {
-    return {
-        type: ACTIONS.ADD_PROJECT,
-        payload: {
-            projects:{
-                result: res.data.result
+    try {
+        return {
+            type: ACTIONS.ADD_PROJECT,
+            payload: {
+                projects: {
+                    result: res.data.result
+                }
             }
         }
+    }
+    catch (err) {
+
     }
 }
 
 export const dispatchUpdateProject = (res) => {
-    return {
-        type: ACTIONS.UPDATE_PROJECT,
-        payload: {
-            projects:{
-                result: res.data.result.projects.result
+    try {
+        return {
+            type: ACTIONS.UPDATE_PROJECT,
+            payload: {
+                projects: {
+                    result: res.data.result
+                }
             }
         }
+    }
+    catch (err) {
+
+    }
+}
+
+export const dispatchDeleteProject = (res) => {
+    try {
+        return {
+            type: ACTIONS.DELETE_PROJECT,
+            payload: {
+                projects: {
+                    result: res.data.result
+                }
+            }
+        }
+    }
+    catch (err) {
+
     }
 }
 
