@@ -22,6 +22,8 @@ app.use(
 		useTempFiles: true,
 	})
 )
+// var distDir = __dirname + "/dist/";
+// app.use(express.static(distDir));
 app.use('/api/admin', require('./routes/adminRouter'));
 app.use('/api/seeder', require('./routes/seedRouter'));
 app.use('/api/user', require('./routes/userRouter'));
@@ -33,11 +35,12 @@ app.use('/api', require('./routes/upload'))
 
 // if(process.env.NODE_ENV === 'production'){
 
-app.use(express.static(path.join(__dirname, '/client/build')));
+app.use(express.static(path.join(__dirname, "client", "build")));
 
-app.get('*', (req, res) => {
-	res.sendFile(path.resolve(__dirname, 'frontend', 'build', ''))
-})
+
+app.get("*", (req, res) => {
+	res.sendFile(path.join(__dirname, "client", "build", "index.html"));
+});
 // }
 // else{
 
