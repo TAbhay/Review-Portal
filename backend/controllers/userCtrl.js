@@ -92,19 +92,19 @@ const userCtrl = {
 
             const refresh_token = createRefreshToken({ id: user._id })
 
-            res.cookie('refreshtoken', refresh_token, {
+            // res.cookie('refreshtoken', refresh_token, {
 
-                httpOnly: true,
-                path: "/api/user/refresh_token",
-                maxAge: 7 * 24 * 60 * 60 * 1000 // 7days,,
-                ,
-                sameSite :'none'
+            //     httpOnly: true,
+            //     path: "/api/user/refresh_token",
+            //     maxAge: 7 * 24 * 60 * 60 * 1000 // 7days,,
+            //     ,
+            //     sameSite :'none'
 
 
 
-            })
+            // })
 
-            res.json({ user: user, msg: "Login success" })
+            res.json({ user: user, msg: "Login success",refresh_token: refresh_token})
 
         } catch (err) {
 
@@ -118,7 +118,7 @@ const userCtrl = {
 
         try {
 
-            const rf_token = req.cookies.refreshtoken
+            const rf_token = req.body.refresh_token
 
             if (!rf_token) return res.status(400).json({ msg: 'Please login' })
 

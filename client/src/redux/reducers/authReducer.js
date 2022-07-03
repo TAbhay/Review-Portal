@@ -17,7 +17,6 @@ const authReducer = (state = initialState, action) => {
                 ...state,
                 isLogged: true
             }
-
         case ACTIONS.GET_USER:
             return {
                 ...state,
@@ -31,6 +30,5 @@ const authReducer = (state = initialState, action) => {
 
     }
 }
-
 
 export default authReducer

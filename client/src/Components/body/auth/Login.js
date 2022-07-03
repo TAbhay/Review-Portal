@@ -39,6 +39,8 @@ export default function Login() {
             setUser({ ...user, err: '', success: res.data.msg })
 
             localStorage.setItem('firstLogin', true)
+            const refresh_token = localStorage.setItem('refresh_token',res.data.refresh_token)
+            console.log(`Refresh token: ${refresh_token}`)
             dispatch(dispatchLogin())
             setLoading(false)
             toast.success('Logged In succesfully !', { theme: "colored" });

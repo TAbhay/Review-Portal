@@ -10,8 +10,9 @@ export default function Header() {
     const { isLogged, isStudent, isReviewer } = auth;
     const handleLogout = async () => {
         try {
-            await axios.get("/api/user/logout");
+            // await axios.get("/api/user/logout");
             localStorage.removeItem("firstLogin");
+            localStorage.removeItem("refresh_token");
             window.location.href = "/";
         } catch (err) { }
     };

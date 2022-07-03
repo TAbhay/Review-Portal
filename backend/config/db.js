@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 
 const configDb = () => {
   mongoose
-    .connect(process.env.MONGO_URI)
+    .connect(process.env.MONGO_URI || 'mongodb://localhost/review')
     .then((c) => {
       console.log(`Mongodb connect to: ${c.connection.host}`);
     })

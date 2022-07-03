@@ -24,7 +24,8 @@ const App = () => {
       setLoading(true)
       const getToken = async () => {
         try {
-          const res = await axios.post('/api/user/refresh_token', null)
+          const refresh_token = localStorage.getItem('refresh_token')
+          const res = await axios.post('/api/user/refresh_token',{ refresh_token: refresh_token})
           dispatch({ type: 'GET_TOKEN', payload: res.data.access_token })
         }
         catch (err) {
