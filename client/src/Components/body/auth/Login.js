@@ -34,7 +34,7 @@ export default function Login() {
 
         try {
             setLoading(true)
-            const res = await axios.post('/user/login', { email, password })
+            const res = await axios.post('/api/user/login', { email, password })
 
             setUser({ ...user, err: '', success: res.data.msg })
 

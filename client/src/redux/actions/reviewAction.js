@@ -1,21 +1,20 @@
 import ACTIONS from "./index"
 import axios from "axios"
 
-export const fetchAllReviews =  async (token) => {
+export const fetchAllReviews = async (token) => {
     const res = await axios.get('/api/review', {
-        headers:{Authorization:token}
+        headers: { Authorization: token }
     })
     return res
 }
 
-export const fetchReview =  async (token,id) => {
+export const fetchReview = async (token, id) => {
     const res = await axios.get(`/api/review/${id}`, {
-        headers:{Authorization:token}
+        headers: { Authorization: token }
     })
-    console.log(res)
+   
     return res
 }
-
 
 export const dispatchAllReviews = (res) => {
     return {

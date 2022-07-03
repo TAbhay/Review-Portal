@@ -1,17 +1,16 @@
 import React, { useState } from "react";
-
 import { Link } from "react-router-dom";
-import "./header.css";
 import { useSelector } from "react-redux";
 import axios from "axios";
+import './header.css';
 
 export default function Header() {
     const auth = useSelector((state) => state.auth);
     const [click, setClick] = useState(false)
-    const { isLogged, isStudent , isReviewer} = auth;
+    const { isLogged, isStudent, isReviewer } = auth;
     const handleLogout = async () => {
         try {
-            await axios.get("/user/logout");
+            await axios.get("/api/user/logout");
             localStorage.removeItem("firstLogin");
             window.location.href = "/";
         } catch (err) { }
@@ -30,62 +29,62 @@ export default function Header() {
                     <ul className={click ? "nav-menu active" : "nav-menu"}>
                         {isStudent && (
                             <>
-                            <li className="nav-item">
-                                        <Link
-                                            exact
-                                            to=""
-                                            activeClassName="active"
-                                            className="nav-links"
-                                            onClick={click ? handleClick : null}
-                                        >
-                                            Home
-                                        </Link>
-                                    </li>
-                            <li className="nav-item">
-                                <Link
-                                    exact
-                                    to="/project"
-                                    activeClassName="active"
-                                    className="nav-links"
-                                    onClick={click ? handleClick : null}
-                                >
-                                    Projects
-                                </Link>
-                            </li>
+                                <li className="nav-item">
+                                    <Link
+                                        exact
+                                        to=""
+                                        activeClassName="active"
+                                        className="nav-links"
+                                        onClick={click ? handleClick : null}
+                                    >
+                                        Home
+                                    </Link>
+                                </li>
+                                <li className="nav-item">
+                                    <Link
+                                        exact
+                                        to="/project"
+                                        activeClassName="active"
+                                        className="nav-links"
+                                        onClick={click ? handleClick : null}
+                                    >
+                                        Projects
+                                    </Link>
+                                </li>
                             </>
                         )
                         }
                         {isReviewer && (
                             <>
-                            <li className="nav-item">
-                                        <Link
-                                            exact
-                                            to=""
-                                            activeClassName="active"
-                                            className="nav-links"
-                                            onClick={click ? handleClick : null}
-                                        >
-                                            Home
-                                        </Link>
-                                    </li>
-                            <li className="nav-item">
-                                <Link
-                                    exact
-                                    to="/review"
-                                    activeClassName="active"
-                                    className="nav-links"
-                                    onClick={click ? handleClick : null}
-                                >
-                                    Reviews
-                                </Link>
-                            </li>
+                                <li className="nav-item">
+                                    <Link
+                                        exact
+                                        to=""
+                                        activeClassName="active"
+                                        className="nav-links"
+                                        onClick={click ? handleClick : null}
+                                    >
+                                        Home
+                                    </Link>
+                                </li>
+                                <li className="nav-item">
+                                    <Link
+                                        exact
+                                        to="/review"
+                                        activeClassName="active"
+                                        className="nav-links"
+                                        onClick={click ? handleClick : null}
+                                    >
+                                        Reviews
+                                    </Link>
+                                </li>
                             </>
                         )
                         }
                         {
                             isLogged ?
                                 <>
-                                
+
                                     <li className="nav-item">
                                         <Link
                                             esxact
@@ -123,7 +122,7 @@ export default function Header() {
                                 </>
                                 :
                                 <>
-                                 <li className="nav-item">
+                                    <li className="nav-item">
                                         <Link
                                             exact
                                             to=""

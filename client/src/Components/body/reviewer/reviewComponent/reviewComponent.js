@@ -36,8 +36,6 @@ const ReviewComponent = () => {
   useEffect(() => {
     if (Object.keys(review).length !== 0) if (review.question.length !== 0) { { setQuestion({ Q1: review.question[0].Q1, Q2: review.question[0].Q2, Q3: review.question[0].Q3, Q4: review.question[0].Q4, Q5: review.question[0].Q5, Q6: review.question[0].Q6, Q7: review.question[0].Q7, Q8: review.question[0].Q8, comment: review.comment, status: review.status, project_name: review.project.name, description: review.project.description, author: review.project_by.name, tag_one: review.project.tag_one, tag_two: review.project.tag_two }) } }
     // if (Object.keys(review).length !== 0) { setQuestion({ ...question, project_name: review.project.name, description: review.project.description, author: review.project_by.name, tag_one: review.project.tag_one, tag_two: review.project.tag_two }) }
-    console.log(review,question)
-    console.log(question)
   }, [review])
   useEffect(() => {
     fetchReview();
@@ -46,14 +44,11 @@ const ReviewComponent = () => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    console.log(name, value)
     setQuestion({ ...question, [name]: value });
-    console.log("question", question)
   };
   const handleInputChangeBox = (e) => {
     const { name } = e.target;
     setQuestion({ ...question, [name]: e.target.checked });
-    console.log("question", question)
   };
   var tech = { Node: "lightgreen", Mongodb: "#F7CA18", Python: "#26C281", React: "#19B5FE", Angular: "#F22613", SQL: "orange", C: "#003171", Express: "#BF55EC" };
   const handleSubmit = async (e) => {

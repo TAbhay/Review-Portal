@@ -5,12 +5,11 @@ import axios from 'axios'
 export default function ActivationMail() {
 
     const {activation_token} = useParams()
-    console.log(activation_token);
     useEffect(()=>{
         if(activation_token){
             const activationEmail = async () => {
                try{
-                const res = await axios.post('/user/activation', {activation_token} )
+                const res = await axios.post('/api/user/activation', {activation_token} )
                 toast.success(`${res.data.msg}`, {theme: "colored"});
                }catch(err){
                    err.response.data.msg  &&  toast.error(`${err.response.data.msg}`, {theme: "colored"});

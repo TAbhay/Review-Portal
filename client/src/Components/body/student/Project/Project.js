@@ -37,7 +37,7 @@ const Project = () => {
     setSubpop(true)
   }
   const handleSubmit = async (e) => {
-    console.log(token)
+  
     e.preventDefault();
     if (isEmpty(project.name && project.description && project.id && project.tag_one && project.tag_two)) {
       toast.error('All fields should be filled !', { theme: "colored" });
@@ -73,7 +73,7 @@ const Project = () => {
 
   const handleFinalSubmit = async (e) => {
     e.preventDefault();
-    console.log(token)
+   
     try {
       var res = await axios.post(`/api/project/submit/${project.id}`,{},
       {
@@ -81,7 +81,7 @@ const Project = () => {
       }
       );
       // dispatch(dispatchDeleteProject(res))
-      console.log(res.data)
+     
       toast.success('Submitted for review !', { theme: "colored" });
       closeBox()
     } catch (err) {

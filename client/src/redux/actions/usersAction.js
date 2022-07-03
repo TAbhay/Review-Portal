@@ -1,9 +1,9 @@
 import ACTIONS from "./index"
 import axios from "axios"
 
-export const fetchAllUsers =  async (token) => {
-    const res = await axios.get('/user/all_infor', {
-        headers:{Authorization:token}
+export const fetchAllUsers = async (token) => {
+    const res = await axios.get('/api/user/all_infor', {
+        headers: { Authorization: token }
     })
     return res
 }

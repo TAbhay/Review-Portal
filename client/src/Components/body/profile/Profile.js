@@ -74,7 +74,7 @@ const Profile = () => {
         }
 
         try {
-            axios.post('/user/reset', {
+            axios.post('/api/user/reset', {
                 password
             }, {
                 headers: { Authorization: token }

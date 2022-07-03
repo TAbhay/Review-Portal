@@ -1,4 +1,5 @@
-require("dotenv").config();
+const dotenv = require("dotenv");
+dotenv.config();
 const express = require("express");
 const cors = require("cors")
 const cookieParser = require("cookie-parser")
@@ -21,15 +22,27 @@ app.use(
 		useTempFiles: true,
 	})
 )
-app.use('/admin',require('./routes/adminRouter'));
-app.use('/seeder',require('./routes/seedRouter'));
-app.use('/user', require('./routes/userRouter'));
+app.use('/api/admin',require('./routes/adminRouter'));
+app.use('/api/seeder',require('./routes/seedRouter'));
+app.use('/api/user', require('./routes/userRouter'));
 app.use('/api',require('./routes/projectRouter'));
 app.use('/api',require('./routes/reviewRouter'));
 app.use('/api', require('./routes/upload'))
 
-app.get("/", (req, res) => {
-  res.status(200).send("Api is running!");
-});
+// __dirname = path.resolve();
+
+// if(process.env.NODE_ENV === 'production'){
+// 	app.use(express.static(path.join(__dirname , '/client/build')));
+// 	app.get('*',(req,res) => {
+// 		res.sendFile(path.resolve(__dirname,'frontend','build',''))
+// 	})
+// }
+// else{
+
+    app.get("/", (req, res) => {
+		res.status(200).send("Api is running!");
+	  });
+// }
+
 
 app.listen(PORT, console.log(`Server is running on port ${PORT}`));

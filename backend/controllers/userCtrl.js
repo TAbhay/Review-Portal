@@ -32,7 +32,7 @@ const userCtrl = {
             const newUser = {
                 name, email, role : userRole , password: passwordHash
             }
-            console.log(newUser)
+            // console.log(newUser)
             const activation_token = createActivationToken(newUser)
 
             const url = `${CLIENT_URL}/user/activate/${activation_token}`
@@ -95,7 +95,7 @@ const userCtrl = {
             res.cookie('refreshtoken', refresh_token, {
 
                 // httpOnly: true,
-                path: "/user/refresh_token",
+                path: "/api/user/refresh_token",
                 maxAge: 7 * 24 * 60 * 60 * 1000 // 7days,
 
 

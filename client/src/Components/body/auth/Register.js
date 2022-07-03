@@ -18,8 +18,6 @@ export default function Register() {
 
     const handleSubmit = async e => {
         e.preventDefault()
-        console.log(typeof (role))
-        console.log(role === "1")
         if (!(role === "1" || role === "2")) {
             toast.error('Select Role !', { theme: "colored" });
             setUser({ ...user, err: "Please fill in all fields", success: "" })
@@ -46,7 +44,7 @@ export default function Register() {
             return
         }
         try {
-            const res = await axios.post('/user/register', {
+            const res = await axios.post('/api/user/register', {
                 name, role, email, password
             })
             toast.success('Success', { theme: "colored" });

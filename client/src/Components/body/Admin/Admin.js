@@ -14,15 +14,13 @@ const Admin = () => {
   const dispatch = useDispatch();
   const fetchResult = async () => {
     try {
-      console.log("hree aixos")
-      const response = await axios.get(`/admin/result`, {
+      const response = await axios.get(`/api/admin/result`, {
         headers: { Authorization: token }
       })
-      console.log(response.data)
       dispatch(dispatchAdminData(response))
     }
     catch (err) {
-      console.log(err)
+
     }
   }
   useEffect(() => {
@@ -30,7 +28,6 @@ const Admin = () => {
   }, [])
   const renderReviews = (projects) => {
     projects.map((project) => {
-      console.log("hrer running")
       return (
         <div>
           <h1>Hello</h1>
