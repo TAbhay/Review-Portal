@@ -96,7 +96,9 @@ const userCtrl = {
 
                 // httpOnly: true,
                 path: "/api/user/refresh_token",
-                maxAge: 7 * 24 * 60 * 60 * 1000 // 7days,
+                maxAge: 7 * 24 * 60 * 60 * 1000 // 7days,,
+                ,
+                sameSite :'none'
 
 
 
