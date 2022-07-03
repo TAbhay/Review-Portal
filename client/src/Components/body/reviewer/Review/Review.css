@@ -21,11 +21,11 @@
   font-size: 20px;
   margin-bottom: 0;
 }
-.grid-row .grid-item:hover {
-  filter: contrast(0.7);
-}
+/* .grid-row .grid-item:hover {
+  filter: contrast(0.9);
+} */
 .grid-row .grid-item {
-  transition: filter 0.5s ease;
+  /* transition: filter 0.5s ease; */
   display: flex;
   cursor: pointer;
   background: #f7f7f7;
@@ -35,7 +35,21 @@
   font-family: sans-serif;
   flex-direction: column-reverse;
   align-items: stretch;
+  padding: 15px;
+  border-radius: 10px;
 }
+.shadow {
+  position: relative;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
+}
+
+.shadow:hover {
+  opacity: 1;
+  border-radius: 10px;
+  box-shadow: 0 10px 50px 0 rgba(0, 0, 0, 0.5);
+  transition: opacity 500ms;
+}
+
 .tech_box {
   display: flex;
   margin-right: 20px;

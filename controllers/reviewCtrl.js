@@ -14,7 +14,6 @@ const reviewCtrl = {
                     allReviews[i].project_by.password = null;
                     allReviews[i].project_by.email = null;
            }
-           console.log(allReviews)
            res.status(200).json(allReviews);
        }
        catch(err){
@@ -43,9 +42,13 @@ const reviewCtrl = {
              const reviewUpdate = {
                  question:question,
                  comment:comment,
-                 status:status,
+                 status:status || 0,
              }
-             const result = await Reviews.findOneAndUpdate({review_by:req.user.id,_id:req.params.reviewId},reviewUpdate,{new:true});
+             const result = await Reviews.findOneAndUpdate({review_by:req.user.id,_id:req.params.reviewId},reviewUpdate,{new:true}).populate('project').populate('project_by').select(['-password','-email','-avatar']);;
+             for(var i = 0 ; i < result.length ; i++){
+                result[i].project_by.password = null;
+                result[i].project_by.email = null;
+             }
              res.status(200).json(result); 
        }
        catch(err){

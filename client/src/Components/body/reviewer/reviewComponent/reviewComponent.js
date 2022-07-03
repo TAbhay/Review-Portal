@@ -6,19 +6,15 @@ import { toast } from 'react-toastify';
 import { isEmpty } from "../../../utils/validation/Validation";
 import "./reviewComponent.css";
 import { dispatchReview } from "../../../../redux/actions/reviewAction";
-
+import Loader from "../../../utils/Loader";
 
 const ReviewComponent = () => {
   const id = useParams();
   const token = useSelector((state) => state.token);
-  // const review = useSelector(state => state.currentReview.currentReview);
-  // const result= useSelector(state => state.currentReview)
   const review = useSelector(state => state.currentReview)
-  // console.log(review.question.length)
-  const initialState = { Q1: "", Q2: "", Q3: false, Q4: false, Q5: false, Q6: 0, Q7: 0, Q8: 0, comment: "", status: 0, project_name: "", description: "", author: "", tag_one: "", tag_two: "" };
+  const initialState = { Q1: "", Q2: "", Q3: 0, Q4: 0, Q5: 0, Q6: 0, Q7: 0, Q8: 0, comment: "", status: 0, project_name: "", description: "", author: "", tag_one: "", tag_two: "" };
   const [question, setQuestion] = useState(initialState);
   const [loading, setLoading] = useState(false)
-
   const dispatch = useDispatch();
 
   const fetchReview = async () => {
@@ -39,7 +35,8 @@ const ReviewComponent = () => {
 
   useEffect(() => {
     if (Object.keys(review).length !== 0) if (review.question.length !== 0) { { setQuestion({ Q1: review.question[0].Q1, Q2: review.question[0].Q2, Q3: review.question[0].Q3, Q4: review.question[0].Q4, Q5: review.question[0].Q5, Q6: review.question[0].Q6, Q7: review.question[0].Q7, Q8: review.question[0].Q8, comment: review.comment, status: review.status, project_name: review.project.name, description: review.project.description, author: review.project_by.name, tag_one: review.project.tag_one, tag_two: review.project.tag_two }) } }
-    if (Object.keys(review).length !== 0) { setQuestion({ ...question, project_name: review.project.name, description: review.project.description, author: review.project_by.name, tag_one: review.project.tag_one, tag_two: review.project.tag_two }) }
+    // if (Object.keys(review).length !== 0) { setQuestion({ ...question, project_name: review.project.name, description: review.project.description, author: review.project_by.name, tag_one: review.project.tag_one, tag_two: review.project.tag_two }) }
+    console.log(review,question)
     console.log(question)
   }, [review])
   useEffect(() => {
@@ -49,17 +46,19 @@ const ReviewComponent = () => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
+    console.log(name, value)
     setQuestion({ ...question, [name]: value });
+    console.log("question", question)
   };
   const handleInputChangeBox = (e) => {
     const { name } = e.target;
-    setQuestion({ ...question, [name]: e.target.checked ? 1 : 0 });
+    setQuestion({ ...question, [name]: e.target.checked });
+    console.log("question", question)
   };
   var tech = { Node: "lightgreen", Mongodb: "#F7CA18", Python: "#26C281", React: "#19B5FE", Angular: "#F22613", SQL: "orange", C: "#003171", Express: "#BF55EC" };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(question)
-    if (isEmpty(question.Q1 && question.Q2 && question.Q6 && question.Q7 && question.Q8 && question.comment && question.status)) {
+    if (isEmpty(question.Q1 && question.Q2 && question.Q6 && question.Q7 && question.Q8 && question.comment)) {
       toast.error('All fields should be filled !', { theme: "colored" });
       return;
     }
@@ -84,187 +83,223 @@ const ReviewComponent = () => {
 
   return (
     <div className="review-container">
-      {loading ? <>Loading ... </> : <> <div className="project-body">
-        <div className="project-title">
-          <h1>{question.project_name}</h1>
-          <h5>{question.author}</h5>
-        </div>
-        <div className="project-description">
-          <h4>Description</h4>
-          <p>{question.description}</p>
-          <div className="tech_box card_icon" style={{ justifyContent: 'flex-start' }}>
-            <div className="tech_stack" style={{ backgroundColor: tech[question.tag_one] }}>{question.tag_one}</div>
-            <div className="tech_stack" style={{ backgroundColor: tech[question.tag_two] }}>{question.tag_two}</div>
+      {
+        loading ?
+          < div style={{ marginTop: '100px' }}><Loader /> </div>
+          :
+          <> <div className="project-body mb-5">
+            <div className="project-title">
+              <h1>{question.project_name}</h1>
+              <h5>{question.author}</h5>
+            </div>
+            <div className="project-description">
+              <h4>Description</h4>
+              <p>{question.description}</p>
+              <div className="tech_box card_icon" style={{ justifyContent: 'flex-start' }}>
+                <div className="tech_stack" style={{ backgroundColor: tech[question.tag_one] }}>{question.tag_one}</div>
+                <div className="tech_stack" style={{ backgroundColor: tech[question.tag_two] }}>{question.tag_two}</div>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-        <input className="form-check-input" type="checkbox" />
-        <label className="form-check-label" for="flexCheckDefault">
-          Default checkbox
-        </label>
-        <form>
-          <div className="question-body">
-            <div className="question">
-              <label className="label">
-                Please mention the strong points about the project.
-              </label>
-              <textarea
-                className="label-input form-control"
 
-                id="input"
-                name="Q1"
-                cols={40}
-                rows={4}
-                value={question.Q1}
-                onChange={handleInputChange}
-                required
-              />
+
+          <div className="row justify-content-center">
+          <div className="col-lg-12">
+            <div className="card card-outline-secondary">
+            <div class="card-header">
+                <h3 class="mb-0">Review</h3>
+              </div>
+              <div className="card-body p-5">
+              <form className="form">
+                <div className="form-group row p-2">
+                  <label className="col-lg-9 col-form-label form-control-label">
+                  <b>Please mention the strong points about the project.</b>  
+                  </label>
+                  <div className="col-sm-10">
+                  <textarea
+                    className="form-control"
+                    type="text"
+                    id="input"
+                    name="Q1"
+                    cols={30}
+                    rows={3}
+                    value={question.Q1}
+                    onChange={handleInputChange}
+                    required
+                  />
+                  </div>
+                </div>
+                <div className="form-group row p-2">
+                  <label className="col-lg-9 col-form-label form-control-label">
+                    <b>Please provide the weak points about the project.</b>
+                  </label>
+                  <div className="col-sm-10">
+                  <textarea
+                    className="form-control"
+                    type="text"
+                    id="input"
+                    name="Q2"
+                    cols={30}
+                    rows={3}
+                    value={question.Q2}
+                    onChange={handleInputChange}
+                    required
+                  />
+                  </div>
+                </div>
+                <div className="form-group row p-2">
+                  <label className="col-lg-9 col-form-label form-control-label">
+                   <b> Does the project match the broad domain of TIH-IITP
+                    (speech-vision-text).</b>
+                  </label>
+                  <div className="col-sm-3">
+                  <input
+                    className="form-check-input"
+                    type="checkbox"
+                    id="input"
+                    name="Q3"
+                    defaultChecked={question.Q3}
+                    onChange={handleInputChangeBox}
+                    required
+                  />
+                  </div>
+                </div>
+                <div className="form-group row p-2">
+                  <label className="col-lg-9 col-form-label form-control-label">
+                   <b>Does the project have any potential to make a product or can
+                    it lead to a startup?</b> 
+                  </label>
+                  {/* <input className="form-check-input" type="checkbox" id="input" name="Q4" defaultChecked={question.Q4} onChange={handleInputChangeBox} required /> */}
+                  <div className="col-sm-3">
+                  <input
+                    className="form-check-input"
+                    type="checkbox"
+                    id="input"
+                    name="Q4"
+                    defaultChecked={question.Q4}
+                    onChange={handleInputChangeBox}
+                    required
+                  />
+                  </div>
+                </div>
+                <div className="form-group row p-2">
+                  <label className="col-lg-9 col-form-label form-control-label">
+                    <b>Does the proposal have research challenges in comparison with
+                    current state of the art?</b>
+                  </label>
+                  <div className="col-sm-3">
+                  <input
+                    className="form-check-input"
+                    type="checkbox"
+                    id="input"
+                    defaultChecked={question.Q5}
+                    name="Q5"
+                    onChange={handleInputChangeBox}
+                    required
+                  />
+                  </div>
+                </div>
+                <div className="form-group row p-2">
+                  <label className="col-lg-9 col-form-label form-control-label">
+                   <b> Please rate the project in terms of novelty on a scale of 1-5.</b>
+                  </label>
+                  <div className="col-sm-3">
+                  <input
+                    className="form-control"
+                    type="number"
+                    id="input"
+                    min="1"
+                    max="5"
+                    name="Q6"
+                    value={question.Q6}
+                    onChange={handleInputChange}
+                    required
+                  />
+                  </div>
+                </div>
+                <div className="form-group row p-2">
+                  <label className="col-lg-9 col-form-label form-control-label">
+                    <b>Please rate the project in terms of relevance in the present
+                    context on a scale of 1-5.</b>
+                  </label>
+                  <div className="col-sm-3">
+                  <input
+                    className="form-control"
+                    type="number"
+                    id="input"
+                    min="1"
+                    max="5"
+                    name="Q7"
+                    value={question.Q7}
+                    onChange={handleInputChange}
+                    required
+                  />
+                  </div>
+                </div>
+                <div className="form-group row p-2">
+                  <label className="col-lg-9 col-form-label form-control-label">
+                    <b>Recommendation for funding on a scale of 1-5</b>
+                  </label>
+                  <div className="col-sm-3">
+                  <input
+                    className="form-control"
+                    type="number"
+                    id="input"
+                    min="1"
+                    max="5"
+                    name="Q8"
+                    value={question.Q8}
+                    onChange={handleInputChange}
+                    required
+                  />
+                  </div>
+                </div>
+                <div className="form-group row p-2">
+                  <label className="col-lg-9 col-form-label form-control-label">
+                   <b>Confidential comments to TIH-IITP</b> 
+                  </label>
+                  <div className="col-sm-10">
+                  <textarea
+                    className="form-control"
+                    type="text"
+                    id="input"
+                    name="comment"
+                    cols={30}
+                    rows={3}
+                    onChange={handleInputChange}
+                    value={question.comment}
+                    required
+                  />
+                  </div>
+                </div>
+                <div className="form-group row p-2">
+                  <label className="col-lg-9 col-form-label form-control-label">
+                    <b>Mark it as Reviewed</b>
+                  </label>
+                  <div className="col-sm-3">
+                  <input
+                    className="form-check-input"
+                    type="checkbox"
+                    id="input"
+                    name="status"
+                    defaultChecked={question.status}
+                    onChange={handleInputChangeBox}
+                  />
+                  </div>
+                </div>
+                <div className="form-group row p-2">
+            <div class="col-lg-9">
+              <button class="btn btn-success btn-lg" style={{ backgroundColor: '#0d9460',width:'200px' }} onClick={handleSubmit}>
+                Submit
+              </button>
+              </div>
+               </div>
+            </form>
             </div>
-            <div className="question">
-              <label className="label">
-                Please provide the weak points about the project.
-              </label>
-              <input
-                className="label-input form-control"
-                type="text"
-                id="input"
-                name="Q2"
-                cols={40}
-                rows={3}
-                value={question.Q2}
-                onChange={handleInputChange}
-                required
-              />
             </div>
-            <div className="question">
-              <label className="label">
-                Does the project match the broad domain of TIH-IITP
-                (speech-vision-text).
-              </label>
-              <input
-                className="label-input"
-                type="checkbox"
-                id="input"
-                name="Q3"
-                defaultChecked={question.Q3}
-                onChange={handleInputChangeBox}
-                required
-              />
             </div>
-            <div className="question">
-              <label className="label">
-                Does the project have any potential to make a product or can
-                it lead to a startup?
-              </label>
-              <input
-                className="label-input"
-                type="checkbox"
-                id="input"
-                name="Q4"
-                defaultChecked={question.Q4}
-                onChange={handleInputChangeBox}
-                required
-              />
             </div>
-            <div className="question">
-              <label className="label">
-                Does the proposal have research challenges in comparison with
-                current state-of-the-art?
-              </label>
-              <input
-                className="label-input"
-                type="checkbox"
-                id="input"
-                defaultChecked={question.Q5}
-                name="Q5"
-                onChange={handleInputChangeBox}
-                required
-              />
-            </div>
-            <div className="question">
-              <label className="label">
-                Please rate the project in terms of novelty on a scale of 1-5.
-              </label>
-              <input
-                className="label-input form-control"
-                type="number"
-                id="input"
-                min="1"
-                max="5"
-                name="Q6"
-                value={question.Q6}
-                onChange={handleInputChange}
-                required
-              />
-            </div>
-            <div className="question">
-              <label className="label">
-                Please rate the project in terms of relevance in the present
-                context on a scale of 1-5.
-              </label>
-              <input
-                className="label-input form-control"
-                type="number"
-                id="input"
-                min="1"
-                max="5"
-                name="Q7"
-                value={question.Q7}
-                onChange={handleInputChange}
-                required
-              />
-            </div>
-            <div className="question">
-              <label className="label">
-                Recommendation for funding on a scale of 1-5
-              </label>
-              <input
-                className="label-input form-control"
-                type="number"
-                id="input"
-                min="1"
-                max="5"
-                name="Q8"
-                value={question.Q8}
-                onChange={handleInputChange}
-                required
-              />
-            </div>
-            <div className="question">
-              <label className="label">
-                Confidential comments to TIH-IITP
-              </label>
-              <textarea
-                className="label-input form-control"
-                type="text"
-                id="input"
-                name="comment"
-                cols={40}
-                rows={2}
-                onChange={handleInputChange}
-                value={question.comment}
-                required
-              />
-            </div>
-            <div className="question">
-              <label className="label">Mark it as Reviewed</label>
-              <input
-                className="label-input"
-                type="checkbox"
-                id="input"
-                name="status"
-                defaultChecked={question.status}
-                onChange={handleInputChangeBox}
-                required
-              />
-            </div>
-          </div>
-        </form>
-        <div className="quiz-answer submit_button_div">
-          <button className="submit_button" onClick={handleSubmit}>
-            Submit
-          </button>
-        </div></>
+          </>
       }
     </div>
   );

@@ -11,7 +11,7 @@ const Home = () => {
                     <h1>Let's Make Project Review Easy 👨‍🏫 👨‍🎓</h1>
                     <h3>Portal for Student & Professors <br></br></h3>
                     <h6>Get started with your project submission and reviews in few clicks.</h6>
-                    <button>Welcome 👋</button>
+                    <button className="btn btn-success"  >Welcome 👋</button>
                 </div>
                 <div className="image">
                     <img src={bg1} />

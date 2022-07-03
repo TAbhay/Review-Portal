@@ -13,21 +13,22 @@ import ReviewComponent from "./reviewer/reviewComponent/reviewComponent"
 import Projects from "./student/Projects/Projects"
 import Home from "../body/Home/Home"
 import Team from "../body/Team/Team"
+import Admin from "../body/Admin/Admin"
 
 export default function Body() {
 
     const auth = useSelector(state => state.auth)
-    const { isLogged, isStudent, isReviewer } = auth;
+    const { isLogged, isStudent, isReviewer , isAdmin } = auth;
 
     return (
-        <div style={{minHeight:'84vh'}}>
-          <Switch>
-                 <Route path="/" component={Home} exact />
-                 <Route path="/team" component={Team} exact />
+        <div style={{ minHeight: '84vh' }}>
+            <Switch>
+                <Route path="/" component={Home} exact />
+                <Route path="/team" component={Team} exact />
                 {
                     isStudent &&
                     <>
-                        <Route path="/project" component={isLogged? Projects : Login} exact />
+                        <Route path="/project" component={isLogged ? Projects : Login} exact />
                         {/* <Route path="/project/:id" component={Admin} exact /> */}
                         <Route path="/profile" component={isLogged ? Profile : Login} exact />
                     </>
@@ -36,35 +37,41 @@ export default function Body() {
                     isReviewer &&
                     <>
                         <Route path="/review" component={isLogged ? Reviews : Login} exact />
-                        <Route path="/review/:id" component={ isLogged ? ReviewComponent : Login} exact />
+                        <Route path="/review/:id" component={isLogged ? ReviewComponent : Login} exact />
                         <Route path="/profile" component={isLogged ? Profile : Login} exact />
 
                     </>
                 }
                 {/* <Route path="/" component={isLogged ? Projects : Login} exact /> */}
                 {
-                    isLogged ? 
+                    isAdmin &&
                     <>
-                    
-                    <Route path="/forgot_password" component={ForgotPassword} exact />
-                    <Route path="/user/reset/:token" component={ResetPassword} exact />
-                    <Route path="/login" component={NotFound} exact />
-                    <Route path="/register" component={NotFound} exact />
-                    
-                    </>
-                    :
-                    <>
-                    <Route path="/login" component={Login} exact />
-                    <Route path="/register" component={Register} exact />
-                    <Route path="/user/activate/:activation_token" component={ActivationMail} exact />
-                   
+                        <Route path="/admin" component={Admin} exact />
                     </>
                 }
+                {
+                    isLogged ?
+                        <>
 
-                {/* <Route path="/admin" component={Admin} exact /> */}
+                            <Route path="/forgot_password" component={ForgotPassword} exact />
+                            <Route path="/user/reset/:token" component={ResetPassword} exact />
+                            <Route path="/login" component={NotFound} exact />
+                            <Route path="/register" component={NotFound} exact />
+
+                        </>
+                        :
+                        <>
+                            <Route path="/login" component={Login} exact />
+                            <Route path="/register" component={Register} exact />
+                            <Route path="/user/activate/:activation_token" component={ActivationMail} exact />
+
+                        </>
+                }
+
+
                 {/* //  <Route path= "/edit_user/:id" comonent={isAdmin ? EditUser : NotFound} exact /> */}
 
             </Switch>
-            </div>
+        </div>
     )
 }

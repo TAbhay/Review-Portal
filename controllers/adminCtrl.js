@@ -4,6 +4,7 @@ const Reviews = require('../models/reviewModel')
 
 const adminCtrl = {
      getResult : async (req,res) =>{
+        console.log("here")
          const result = await Reviews.aggregate([
             {
                 $lookup:{
@@ -52,6 +53,7 @@ const adminCtrl = {
                   
                 {"$sort": {"_id": 1}}
             ]);
+         console.log(result)
          res.json(result);
      }
 

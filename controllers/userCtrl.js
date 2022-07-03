@@ -1,282 +1,283 @@
 const Users = require('../models/userModel')
 const bcrypt = require("bcryptjs")
-const jwt = require ("jsonwebtoken")
-const sendMail= require("./sendMail")
+const jwt = require("jsonwebtoken")
+const sendMail = require("./sendMail")
 //const auth = require('../middleware/auth')
 
-const {CLIENT_URL} = process.env
+const { CLIENT_URL } = process.env
 
 const userCtrl = {
 
-    register:async (req,res) => {
-        try{
-            
-            const {name,email,password} = req.body
+    register: async (req, res) => {
+        try {
 
-            if(!validateEmail(email))
+            const { name, role, email, password } = req.body
 
-            return res.status(400).json({msg:"Invalid email format"})
+            if (!validateEmail(email))
 
-            if(!name || !email || !password)
-              return res.status(400).json({msg:'Please fill in all the fields'})
+                return res.status(400).json({ msg: "Invalid email format" })
 
-            const user = await Users.findOne({email})
+            if (!name || !email || !password)
+                return res.status(400).json({ msg: 'Please fill in all the fields' })
 
-            if(user) return res.status(400).json({msg:"Email already exists"})
+            const user = await Users.findOne({ email })
 
-            if(password.length<6)  return res.status(400).json({msg:"password must be 6 characters length"})
- 
-            const passwordHash = await bcrypt.hash(password,12)
+            if (user) return res.status(400).json({ msg: "Email already exists" })
 
-            const newUser ={
-                name,email,password:passwordHash
+            if (password.length < 6) return res.status(400).json({ msg: "password must be 6 characters length" })
+
+            const passwordHash = await bcrypt.hash(password, 12)
+            const userRole = role === "1" ? 0 : 2
+
+            const newUser = {
+                name, email, role : userRole , password: passwordHash
             }
-         
+            console.log(newUser)
             const activation_token = createActivationToken(newUser)
 
             const url = `${CLIENT_URL}/user/activate/${activation_token}`
 
             const info = await sendMail(email, url, "REGISTER")
 
-            res.json({msg:"Resgistration done , please activate your account"})
+            res.json({ msg: "Resgistration done , please activate your account" })
 
-        }catch(err){
+        } catch (err) {
 
-            return res.status(500).json({msg:err.message})
+            return res.status(500).json({ msg: err.message })
 
         }
 
     },
 
 
-    activateEmail: async(req,res) =>{
-
-        try{
-
-           const {activation_token} = req.body
-           const user = jwt.verify(activation_token, process.env.ACTIVATION_TOKEN_SECRET)
-
-           const {name, email, password} = user
-
-           const check = await Users.findOne({email})
-
-           if(check) return res.status(400).json({msg:"This email already exists"})
-
-
-           const newUser = new Users({
-               name,email,password
-           })
-
-           await newUser.save()
-
-           res.json({msg:"Account activated"})
-
-        }catch(err){
-            return res.status(500).json({msg:err.message})
-        }
-    },
-
-      
-    login:async(req,res) =>{
+    activateEmail: async (req, res) => {
 
         try {
 
-            const {email,password} = req.body
+            const { activation_token } = req.body
+            const user = jwt.verify(activation_token, process.env.ACTIVATION_TOKEN_SECRET)
 
-            const user =await Users.findOne({email})
-            if(!user) return res.status(500).json({msg:"This email does not exist"})
-            
+            const { name, email, password } = user
+
+            const check = await Users.findOne({ email })
+
+            if (check) return res.status(400).json({ msg: "This email already exists" })
+
+
+            const newUser = new Users({
+                name, email, password
+            })
+
+            await newUser.save()
+
+            res.json({ msg: "Account activated" })
+
+        } catch (err) {
+            return res.status(500).json({ msg: err.message })
+        }
+    },
+
+
+    login: async (req, res) => {
+
+        try {
+
+            const { email, password } = req.body
+
+            const user = await Users.findOne({ email })
+            if (!user) return res.status(500).json({ msg: "This email does not exist" })
+
             const isMatch = await bcrypt.compare(password, user.password)
-            if(!isMatch) return res.status(400).json({msg:"Password is incorrect"})
+            if (!isMatch) return res.status(400).json({ msg: "Password is incorrect" })
 
-            const refresh_token = createRefreshToken({id:user._id})
-           
+            const refresh_token = createRefreshToken({ id: user._id })
+
             res.cookie('refreshtoken', refresh_token, {
-             
+
                 // httpOnly: true,
-                 path: "/user/refresh_token",
-                 maxAge:7*24*60*60*1000 // 7days,
-                 
+                path: "/user/refresh_token",
+                maxAge: 7 * 24 * 60 * 60 * 1000 // 7days,
+
 
 
             })
 
-            res.json({user:user,msg:"Login success"})
+            res.json({ user: user, msg: "Login success" })
 
         } catch (err) {
 
-              return res.status(500).json({msg:err.message})
+            return res.status(500).json({ msg: err.message })
         }
 
     },
 
 
-    getAccessToken: (req,res) =>{
+    getAccessToken: (req, res) => {
 
-        try{
-            
+        try {
+
             const rf_token = req.cookies.refreshtoken
-            
-           if(!rf_token) return res.status(400).json({msg:'Please login'})
 
-           jwt.verify(rf_token,process.env.REFRESH_TOKEN_SECRET,(err,user)=>{
-              
-            
-              if(err)   return res.status(400).json({msg:'Please login'})
+            if (!rf_token) return res.status(400).json({ msg: 'Please login' })
 
-              const access_token = createAccessToken({id: user.id})
-            
-               res.json({access_token})
-              
-           })
+            jwt.verify(rf_token, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
 
-        }catch(err){
 
-            return res.status(500).json({msg:err.message})
+                if (err) return res.status(400).json({ msg: 'Please login' })
+
+                const access_token = createAccessToken({ id: user.id })
+
+                res.json({ access_token })
+
+            })
+
+        } catch (err) {
+
+            return res.status(500).json({ msg: err.message })
         }
     },
 
 
-    forgotPassword: async(req,res) =>{
-        try{
-           
-            const {email} = req.body
+    forgotPassword: async (req, res) => {
+        try {
 
-            const user = await Users.findOne({email})
-           
-            if(!user) return res.status(400).json({msg:"This email does not exist"})
-            
-            const access_token =createAccessToken({id:user._id})
+            const { email } = req.body
+
+            const user = await Users.findOne({ email })
+
+            if (!user) return res.status(400).json({ msg: "This email does not exist" })
+
+            const access_token = createAccessToken({ id: user._id })
 
             const url = `${CLIENT_URL}/user/reset/${access_token}`
 
             const info = await sendMail(email, url, "RESET_PASSWORD")
 
-            res.json({msg:"Password reset , check your email"})
+            res.json({ msg: "Password reset , check your email" })
 
-        }catch(err){
-            return res.status(500).json({msg:"Something wrong"})
+        } catch (err) {
+            return res.status(500).json({ msg: "Something wrong" })
         }
     },
 
 
-    resetPassword:async(req,res) =>{
+    resetPassword: async (req, res) => {
 
-        try{
-           
-            const {password} = req.body
+        try {
+
+            const { password } = req.body
             const passwordHash = await bcrypt.hash(password, 12)
-            await Users.findOneAndUpdate({_id:req.user.id},{
+            await Users.findOneAndUpdate({ _id: req.user.id }, {
                 password: passwordHash
             })
 
-            res.json({msg:"Password changed"})
+            res.json({ msg: "Password changed" })
 
-        }catch(err){
+        } catch (err) {
 
-            return res.status(500).json({msg:err.message})
+            return res.status(500).json({ msg: err.message })
         }
     },
 
 
-    getUserInfor:async(req,res) =>{
+    getUserInfor: async (req, res) => {
 
-        try{
-          
+        try {
+
             const user = await Users.findById(req.user.id).select('-password')
             res.json(user)
-        }catch(err){
-            return res.status(500).json({msg:err.message})
+        } catch (err) {
+            return res.status(500).json({ msg: err.message })
         }
     },
 
 
-    getUsersAllInfor: async(req,res) =>{
+    getUsersAllInfor: async (req, res) => {
 
-        try{
-           
-           const users = await Users.find().select('-password')
-           
-           res.json(users)
-        } catch(err){
-            return res.status(500).json({msg:err.message})
+        try {
+
+            const users = await Users.find().select('-password')
+
+            res.json(users)
+        } catch (err) {
+            return res.status(500).json({ msg: err.message })
         }
     },
 
 
-    logout: async(req,res) =>{
+    logout: async (req, res) => {
 
-        try{
+        try {
 
-             await res.clearCookie("refreshtoken" , {path:"/user/refresh_token"})
-              return res.json({msg:'Logged out successfully'})
-        }catch(err){
+            await res.clearCookie("refreshtoken", { path: "/user/refresh_token" })
+            return res.json({ msg: 'Logged out successfully' })
+        } catch (err) {
 
-            return res.status(500).json({msg:err.message})
+            return res.status(500).json({ msg: err.message })
         }
     },
 
 
-    updateUser:async (req,res) => {
+    updateUser: async (req, res) => {
 
-        try{
-              
-            const {name,avatar} = req.body
-            await Users.findOneAndUpdate({_id: req.user.id},{
+        try {
 
-                name , avatar
+            const { name, avatar } = req.body
+            await Users.findOneAndUpdate({ _id: req.user.id }, {
+
+                name, avatar
             })
 
-            res.json({msg:"User updated"})
+            res.json({ msg: "User updated" })
 
-        }catch(err){
+        } catch (err) {
 
-            return res.status(500).json({msg:err.message})
+            return res.status(500).json({ msg: err.message })
         }
     },
 
 
-    updateUsersRole: async (req,res) => {
+    updateUsersRole: async (req, res) => {
 
-        try{
-              
-            const {role} = req.body
-            await Users.findOneAndUpdate({_id: req.params.id},{
+        try {
+
+            const { role } = req.body
+            await Users.findOneAndUpdate({ _id: req.params.id }, {
 
                 role
             })
 
-            res.json({msg:"User updated"})
+            res.json({ msg: "User updated" })
 
-        }catch(err){
+        } catch (err) {
 
-            return res.status(500).json({msg:err.message})
+            return res.status(500).json({ msg: err.message })
         }
     },
 
 
-    deleteUser: async(req,res) => {
+    deleteUser: async (req, res) => {
 
-        try{
-              
-           
+        try {
+
+
             await Users.findByIdAndDelete(req.params.id)
 
-            res.json({msg:"User deleted"})
+            res.json({ msg: "User deleted" })
 
-        }catch(err){
+        } catch (err) {
 
-            return res.status(500).json({msg:err.message})
+            return res.status(500).json({ msg: err.message })
         }
     },
-  
+
 
 }
 
 
-   
 
-function validateEmail(email){
+
+function validateEmail(email) {
     const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
     return re.test(email)
 }
@@ -284,19 +285,19 @@ function validateEmail(email){
 
 const createActivationToken = (payload) => {
 
-    return jwt.sign(payload, process.env.ACTIVATION_TOKEN_SECRET,{expiresIn:"1d"})
+    return jwt.sign(payload, process.env.ACTIVATION_TOKEN_SECRET, { expiresIn: "1d" })
 }
 
 
 const createAccessToken = (payload) => {
 
-    return jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET,{expiresIn:"2d"})
+    return jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "2d" })
 }
 
 
 const createRefreshToken = (payload) => {
 
-    return jwt.sign(payload, process.env.REFRESH_TOKEN_SECRET ,{expiresIn:"7d"})
+    return jwt.sign(payload, process.env.REFRESH_TOKEN_SECRET, { expiresIn: "7d" })
 }
 
 module.exports = userCtrl

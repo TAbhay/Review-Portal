@@ -4,6 +4,6 @@ const auth = require('../middleware/auth')
 const authAdmin = require('../middleware/authAdmin')
 
 
-router.get('/dataseeder',seedingCtrl.dataSeeder );
+router.get('/dataseeder',auth,authAdmin,seedingCtrl.dataSeeder );
 
 module.exports = router;
