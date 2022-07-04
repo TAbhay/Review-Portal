@@ -26,11 +26,11 @@ cd client
 npm start
 ```
 ![dashboard](./snaps/jpg10.jpg)
-![dashboard](./snapsjpg10.jpg)
-![login](./snaps/jpg10.jpg)
-![screen](./snaps/jpg10.jpg)
-![screen](./snaps/jpg10.jpg)
-![screen](./snaps/jpg10.jpg)
+![dashboard](./snapsjpg11.jpg)
+![login](./snaps/jpg12.jpg)
+![screen](./snaps/jpg13.jpg)
+![screen](./snaps/jpg14.jpg)
+![screen](./snaps/jpg15.jpg)
 
 
 ## Still Working
