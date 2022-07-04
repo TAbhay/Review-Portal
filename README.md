@@ -1,8 +1,21 @@
 # Review_Project
 
 A portal to manage the project submission and collecting reviews.
+Get started with your project submission and reviews in few clicks.
 
+Visit - : https://project-review-portal.herokuapp.com/
+
+#Demo email and password
+
+| Role | Email     | Password                       |
+| :-------- | :------- | :-------------------------------- |
+| Student     |  tiwari@gmail.com| 123456  |
+| Student    |   mourya@gmail.com | 123456 |
+| Reviewer     | mahesh@gmail.com |  123456 |
+| Reviewer    |  suresh@gmail.com  | 123456 |
 ## Clone the repo
+
+
 Install the dependencies and devDependencies and start the server.
 ```sh
 cd Review_Project
@@ -12,12 +25,12 @@ cd client
 
 npm start
 ```
-![portal](./snaps/portal.png)
-![login](./snaps/login.png)
-![register](./snaps/register.png)
-![profile](./snaps/profile.png)
-![form2](./snaps/form2.png)
-![form](./snaps/form.png)
+![dashboard](./snaps/jpg10.jpg)
+![dashboard](./snapsjpg10.jpg)
+![login](./snaps/jpg10.jpg)
+![screen](./snaps/jpg10.jpg)
+![screen](./snaps/jpg10.jpg)
+![screen](./snaps/jpg10.jpg)
 
 
 ## Still Working
