@@ -26,7 +26,7 @@ export const projectReducer = (state =initialState, action) => {
     case ACTIONS.UPDATE_PROJECT:
         const updateData = action.payload.projects.result
         const filtered = state.projects.map((project) => project._id === updateData._id ? {...updateData}:project);
-        console.log(filtered,"filered")
+       
         return {
             ...state,
             projects:[...filtered]

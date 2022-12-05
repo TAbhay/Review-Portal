@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon backend/server.js",
-    "client":"npm start --prefix client",
-    "dev":"concurrently \"npm start\" \"npm run client\"",
+    "build": "cd backend && npm install  && cd ../frontend && npm install && npm run build",
+    "frontend":"npm start --prefix frontend",
+    "dev":"concurrently \"npm start\" \"npm run frontend\"",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
   },
   "repository": {

@@ -26,6 +26,10 @@ const projectSchema = new mongoose.Schema({
     is_deadline:{
         type:Number,
         default:0
+    },
+    submitted:{
+       type:Number,
+       default:0
     }
 }
 ,{

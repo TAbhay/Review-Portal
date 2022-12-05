@@ -17,7 +17,7 @@ const reviewCtrl = {
            res.status(200).json(allReviews);
        }
        catch(err){
-        console.log(err)
+      
            return res.status(500).json({message:"Some error occured  !! 3 "});
        }   
          
@@ -25,13 +25,13 @@ const reviewCtrl = {
     getReview: async (req,res) =>{
        try{
         const review = await Reviews.find({review_by:req.user.id,_id:req.params.reviewId}).populate('project').populate('project_by').select(['-password','-email','-avatar']);
-        console.log(review);
+       
         review[0].project_by.password = null;
         review[0].project_by.email = null;
         res.status(200).json(review);
        }
        catch(err){
-        console.log(err)
+            // console.log(err)
            return res.status(500).json({message:"Some error occured !! 2"});
        }
        

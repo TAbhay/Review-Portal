@@ -11,7 +11,7 @@ const uploadCtrl = {
 	uploadAvatar: (req, res) => {
 		try {
 			const file = req.files.file
-			console.log('req.files: ', req.files.file)
+			// console.log('req.files: ', req.files.file)
 
 			cloudinary.v2.uploader.upload(
 				file.tempFilePath,
