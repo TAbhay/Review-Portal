@@ -3,7 +3,7 @@
 A portal to manage the project submission and collecting reviews.
 Get started with your project submission and reviews in few clicks.
 
-Visit - : https://project-review-portal.herokuapp.com/
+Visit - : https://review-portal-zjzb.onrender.com/
 
 #Demo email and password
 
