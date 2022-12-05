@@ -12,7 +12,7 @@ const Review = () => {
     const author = item.project_by.name
     const tech_one = item.project.tag_one
     const tech_two = item.project.tag_two
-    var tech = { Node: "lightgreen", Mongodb: "#F7CA18", Python: "#26C281", React: "#19B5FE", Angular: "#F22613", SQL: "orange", C: "#003171", Express: "#BF55EC" };
+    var tech = { Node: "lightgreen", Mongodb: "#F7CA18", Python: "#26C281", React: "#19B5FE", Angular: "#F22613", SQL: "orange", C: "#003171", Express: "#BF55EC",Other:"black" };
     return (
       <div className="grid-item shadow">
         <div className="grid_card">

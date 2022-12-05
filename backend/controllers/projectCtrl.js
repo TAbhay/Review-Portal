@@ -46,9 +46,9 @@ const projectCtrl = {
     editproject: async (req, res) => {
         try {
             const { name, description , tag_one , tag_two} = req.body;
-            console.log(tag_one,tag_two)
+          
             const result = await Projects.findOneAndUpdate({ project_by: req.user.id, _id: req.params.projectId }, { name: name, description: description , tag_one: tag_one, tag_two: tag_two}, { new: true });
-            console.log(result)
+            // console.log(result)
             res.status(200).json({ result: result });
         }
         catch (err) {
@@ -57,15 +57,15 @@ const projectCtrl = {
     },
     submitproject: async (req, res) => {
         try {
-            console.log("sub pro")
+         
             const projectStatus = await Projects.find({ project_by: req.user.id, _id: projectId });
             if(projectStatus.submitted === 1){
-                console.log("hre")
+               
                 res.json({result:"Already submitted for review"})
                 return
             }
             const result = await Projects.findOneAndUpdate({ project_by: req.user.id, _id: req.params.projectId }, { submitted:1}, { new: true });
-            console.log(result)
+         
             const reviewers = await Users.find({role:2});
             const jsons = []
             const temp =  reviewers.sort(() => Math.random() - 0.5);  
