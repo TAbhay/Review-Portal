@@ -9,6 +9,7 @@ Visit - : https://review-portal-zjzb.onrender.com/
 
 | Role | Email     | Password                       |
 | :-------- | :------- | :-------------------------------- |
+| Student     |  youknow@gmail.com| 123456  |
 | Student     |  tiwari@gmail.com| 123456  |
 | Student    |   mourya@gmail.com | 123456 |
 | Reviewer     | mahesh@gmail.com |  123456 |
